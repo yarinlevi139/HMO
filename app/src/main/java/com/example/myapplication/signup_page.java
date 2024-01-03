@@ -42,7 +42,7 @@ public class signup_page extends AppCompatActivity {
                 String confirm_password = confirm_pass.getText().toString();
 
 
-                if(password.equals(confirm_password)) {
+                if(password.equals(confirm_password) && !email.contains("@myhealth")) {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -59,7 +59,10 @@ public class signup_page extends AppCompatActivity {
                             });
                 }
                 else{
-                    Toast.makeText(signup_page.this,"Passwords do not match",Toast.LENGTH_LONG).show();
+                    if(!password.equals(confirm_password))
+                        Toast.makeText(signup_page.this,"Passwords do not match",Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(signup_page.this,"you cannot use that email",Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -57,9 +57,17 @@ public class login_page extends AppCompatActivity {
                             Toast.makeText(login_page.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
 
                             // Start another activity or perform further actions
-                            Intent intent = new Intent(login_page.this, main_page_member.class);
-                            startActivity(intent);
-                            finish(); // Finish LoginActivity so the user cannot go back to it using the back button
+                            if (email.contains("@myhealth")) {
+                                Intent intent = new Intent(login_page.this, main_page_worker.class);
+                                startActivity(intent);
+                                finish(); // Finish LoginActivity so the user cannot go back to it using the back button
+                            }
+                            else
+                            {
+                                Intent intent = new Intent(login_page.this, main_page_member.class);
+                                startActivity(intent);
+                                finish(); // Finish LoginActivity so the user cannot go back to it using the back button
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(login_page.this, "Authentication failed.", Toast.LENGTH_SHORT).show();

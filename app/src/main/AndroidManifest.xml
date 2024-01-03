@@ -27,6 +27,8 @@
             />
         <activity android:name=".main_page_member"
             />
+        <activity android:name=".main_page_worker"
+            />
     </application>
 
 </manifest>
