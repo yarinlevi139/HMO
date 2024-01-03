@@ -25,6 +25,8 @@
             />
         <activity android:name=".signup_page"
             />
+        <activity android:name=".main_page_member"
+            />
     </application>
 
 </manifest>
