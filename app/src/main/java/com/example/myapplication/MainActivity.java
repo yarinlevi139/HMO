@@ -12,5 +12,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         System.out.println("ODIE");
+        Toast.makeText(this,"harta",Toast.LENGTH_LONG).show();
     }
 }
