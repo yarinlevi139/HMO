@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign up"
@@ -17,7 +17,7 @@
         app:layout_constraintVertical_bias="0.666" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -32,12 +32,12 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/editTextText4"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="ID"
+        android:text="Email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.539"
@@ -47,7 +47,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/editTextText5"
+        android:id="@+id/confirm_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -61,7 +61,7 @@
         app:layout_constraintVertical_bias="0.533" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/backbtnsgn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="back to main page"

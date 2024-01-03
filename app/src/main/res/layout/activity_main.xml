@@ -7,7 +7,6 @@
     tools:context=".MainActivity">
 
 
-
     <Button
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
@@ -15,10 +14,10 @@
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292" />
+        app:layout_constraintVertical_bias="0.513" />
 
     <Button
         android:id="@+id/signup_button"
@@ -28,9 +27,9 @@
 "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintVertical_bias="0.622" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
