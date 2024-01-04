@@ -33,6 +33,8 @@ public class signup_page extends AppCompatActivity {
         EditText pass_box = findViewById(R.id.password);
 
         EditText confirm_pass = findViewById(R.id.confirm_password);
+
+        Button back_btn = findViewById(R.id.backbtnsgn);
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +66,14 @@ public class signup_page extends AppCompatActivity {
                     else
                         Toast.makeText(signup_page.this,"you cannot use that email",Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent n = new Intent(signup_page.this,MainActivity.class);
+                startActivity(n);
             }
         });
 

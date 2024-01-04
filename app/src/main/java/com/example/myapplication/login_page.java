@@ -31,6 +31,8 @@ public class login_page extends AppCompatActivity {
         EditText pass_box = findViewById(R.id.password);
 
         Button sign_up_btn = findViewById(R.id.login);
+
+        Button back_btn = findViewById(R.id.backbtnlg);
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +41,14 @@ public class login_page extends AppCompatActivity {
                 signIn(email, password);
             }
         });
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent n = new Intent(login_page.this,MainActivity.class);
+                startActivity(n);
+            }
+        });
+
     }
 
     private void signIn(String email, String password) {
