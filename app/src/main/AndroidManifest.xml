@@ -21,14 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="login_page"
-            />
-        <activity android:name=".signup_page"
-            />
-        <activity android:name=".main_page_member"
-            />
-        <activity android:name=".main_page_worker"
-            />
+        <activity android:name="login_page" />
+        <activity android:name=".signup_page" />
+        <activity android:name=".main_page_member" />
+        <activity android:name=".main_page_worker" />
+        <activity android:name=".MakeAppointmentActivity" />
+        <activity android:name=".CancelAppointmentActivity" />
     </application>
 
 </manifest>
