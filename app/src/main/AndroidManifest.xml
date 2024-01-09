@@ -29,6 +29,12 @@
             />
         <activity android:name=".main_page_worker"
             />
+        <activity android:name=".doctor_messages"
+            />
+        <activity android:name=".doctor_profile"
+            />
+        <activity android:name=".doctor_schedule"
+            />
     </application>
 
 </manifest>
