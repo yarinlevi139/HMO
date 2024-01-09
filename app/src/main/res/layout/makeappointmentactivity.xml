@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/instructionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What do you need?"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <Button
+            android:id="@+id/bloodTestButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blood Test"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/familyDoctorButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Family Doctor"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/dentistButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dentist"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/eyeCheckupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eye Checkup"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/physicalTherapyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Physical Therapy"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/cardiologistButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cardiologist"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/neurologistButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Neurologist"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/orthopedicButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orthopedic"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back" />
+    </LinearLayout>
+
+</ScrollView>
