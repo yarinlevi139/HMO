@@ -45,7 +45,16 @@ public class signup_page extends AppCompatActivity {
                 String password = pass_box.getText().toString();
                 String confirm_password = confirm_pass.getText().toString();
 
+                if (email.isEmpty()) {
+                    Toast.makeText(signup_page.this, "Empty email",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password.isEmpty())
+                {
+                    Toast.makeText(signup_page.this, "Empty password",Toast.LENGTH_SHORT).show();
+                    return;
 
+                }
                 if(password.equals(confirm_password) && !email.contains("@myhealth")) {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -53,14 +62,14 @@ public class signup_page extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        Toast.makeText(signup_page.this, "Authentication successful.",
+                                        Toast.makeText(signup_page.this, "Welcome!",
                                                 Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(signup_page.this, create_client_profile.class);
                                         intent.putExtra("Email", email); // Pass the email
                                         startActivity(intent);
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Toast.makeText(signup_page.this, "Authentication failed.",
+                                        Toast.makeText(signup_page.this, "Bad email or password",
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }

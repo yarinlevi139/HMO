@@ -7,17 +7,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class create_client_profile extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_client_profile);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         EditText first_name = findViewById(R.id.first_name);
         EditText last_name = findViewById(R.id.last_name);
@@ -37,6 +41,13 @@ public class create_client_profile extends AppCompatActivity {
                 String idNumber = id.getText().toString();
                 String ageNumber = age.getText().toString();
 
+                //Check if name or last name is empty
+                if (firstName.isEmpty() || lastName.isEmpty())
+                {
+                    Toast.makeText(create_client_profile.this, "Fill in the blank parts", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 // Validate the age and ID
                 if (!isValidAge(ageNumber)) {
                     Toast.makeText(create_client_profile.this, "Please enter a valid age", Toast.LENGTH_LONG).show();
@@ -48,25 +59,52 @@ public class create_client_profile extends AppCompatActivity {
                     return;
                 }
 
-                Map<String, Object> user = new LinkedHashMap<>();
-                user.put("id", idNumber);
-                user.put("first_name", firstName);
-                user.put("last_name", lastName);
-                user.put("age", ageNumber);
-                user.put("email_address", emailAddress);
+                // Check if the ID already exists
+                checkIdExistence(idNumber, exists -> {
+                    if (exists) {
+                        Toast.makeText(create_client_profile.this, "Id already exists", Toast.LENGTH_LONG).show();
+                    } else {
+                        // Continue with profile creation
+                        Map<String, Object> user = new LinkedHashMap<>();
+                        user.put("id", idNumber);
+                        user.put("first_name", firstName);
+                        user.put("last_name", lastName);
+                        user.put("age", ageNumber);
+                        user.put("email_address", emailAddress);
 
-                db.collection("Clients")
-                        .document(idNumber) // Use the client's id as the document id
-                        .set(user)
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(create_client_profile.this, "Profile added successfully", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(create_client_profile.this, MainActivity.class);
-                            startActivity(intent);
-                        })
-                        .addOnFailureListener(e -> Toast.makeText(create_client_profile.this, "Error adding profile", Toast.LENGTH_LONG).show());
+                        db.collection("Clients")
+                                .document(idNumber)
+                                .set(user)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(create_client_profile.this, "Profile added successfully", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(create_client_profile.this, MainActivity.class);
+                                    startActivity(intent);
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(create_client_profile.this, "Error adding profile", Toast.LENGTH_LONG).show());
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void checkIdExistence(String idNumber, OnIdCheckListener listener) {
+        DocumentReference docRef = db.collection("Clients").document(idNumber);
+
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                listener.onIdCheck(task.getResult().exists());
+            } else {
+                Toast.makeText(create_client_profile.this, "Error checking document: " + task.getException(), Toast.LENGTH_LONG).show();
             }
         });
     }
+
+    private interface OnIdCheckListener {
+        void onIdCheck(boolean exists);
+    }
+
+
 
     private boolean isValidAge(String age) {
         try {
