@@ -30,6 +30,7 @@
         <activity android:name=".doctor_messages"/>
         <activity android:name=".doctor_profile"/>
         <activity android:name=".doctor_schedule"/>
+        <activity android:name=".create_client_profile"/>
     </application>
 
 </manifest>
