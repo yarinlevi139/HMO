@@ -22,6 +22,8 @@ public class doctor_profile extends AppCompatActivity {
     private TextView lastnametv;
     private TextView clinictv;
 
+    private Button back_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class doctor_profile extends AppCompatActivity {
         typetv = findViewById(R.id.profile_type);
         emailtv = findViewById(R.id.profile_email);
         clinictv = findViewById(R.id.profile_clinic);
+        back_btn = findViewById(R.id.profile_back);
 
         Button login = findViewById(R.id.profile_back);
         login.setOnClickListener(new View.OnClickListener(){
@@ -53,6 +56,15 @@ public class doctor_profile extends AppCompatActivity {
         } else {
 
         }
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
     }
 
     private void retrieveUserData(String userEmail) {
