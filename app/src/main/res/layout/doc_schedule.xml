@@ -41,7 +41,9 @@
         android:text="back"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="256dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.941"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="5dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
