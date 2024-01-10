@@ -28,6 +28,8 @@ public class signup_page extends AppCompatActivity {
 
         Button sign_up_btn = findViewById(R.id.signup);
 
+//        EditText first_name = findViewById(R.id.first_name);
+
         EditText lg_box = findViewById(R.id.email);
 
         EditText pass_box = findViewById(R.id.password);
@@ -38,7 +40,7 @@ public class signup_page extends AppCompatActivity {
         sign_up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//                String name = first_name.getText().toString();
                 String email = lg_box.getText().toString();
                 String password = pass_box.getText().toString();
                 String confirm_password = confirm_pass.getText().toString();
@@ -52,7 +54,11 @@ public class signup_page extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(signup_page.this, "Authentication successful.",
-                                                Toast.LENGTH_SHORT).show();                                    } else {
+                                                Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(signup_page.this, create_client_profile.class);
+                                        intent.putExtra("Email", email); // Pass the email
+                                        startActivity(intent);
+                                    } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(signup_page.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
