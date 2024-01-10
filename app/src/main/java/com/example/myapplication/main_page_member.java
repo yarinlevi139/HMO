@@ -27,14 +27,6 @@ public class main_page_member extends AppCompatActivity {
         // Get the email from the Intent
         String email = getIntent().getStringExtra("Email");
 
-//        // Set the welcome text
-//        TextView welcomeText = findViewById(R.id.welcomeText);
-//        welcomeText.setText("Hello " + email + "!\nHow can we help you today?");
-//
-//
-//        // Get the email from the Intent
-//        String email = getIntent().getStringExtra("Email");
-
         // Get Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -62,6 +54,7 @@ public class main_page_member extends AppCompatActivity {
         Button makeAppointmentButton = findViewById(R.id.makeAppointmentButton);
         Button cancelAppointmentButton = findViewById(R.id.cancelAppointmentButton);
         Button backButton = findViewById(R.id.backButton); // New back button
+        Button my_profile = findViewById(R.id.profile_member_btn);
 
         makeAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +79,14 @@ public class main_page_member extends AppCompatActivity {
             public void onClick(View v) {
                 // Go back to the previous activity
                 finish();
+            }
+        });
+
+        my_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(main_page_member.this, client_profile.class);
+                startActivity(intent);
             }
         });
     }
