@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +15,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Create a ScrollView
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.setLayoutParams(new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT));
+
 
         // Create a LinearLayout to hold the buttons
         LinearLayout linearLayout = new LinearLayout(this);
@@ -31,18 +31,42 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         linearLayout.addView(instructionText);
 
         // Add appointment type buttons
-        String[] appointmentTypes = {"Blood Test", "Family Doctor", "Dentist", "Eye Checkup", "Physical Therapy", "Cardiologist", "Neurologist", "Orthopedic"};
-        for (String type : appointmentTypes) {
-            Button button = new Button(this);
-            button.setText(type);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Handle button click here
-                }
-            });
-            linearLayout.addView(button);
-        }
+        Button BloodTest = findViewById(R.id.bloodTestButton);
+        Button FamilyDoctor = findViewById(R.id.familyDoctorButton);
+        Button Dentist = findViewById(R.id.dentistButton);
+        Button EyeCheckup = findViewById(R.id.eyeCheckupButton);
+
+        BloodTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_bloodtest.class);
+                startActivity(intent);
+            }
+        });
+
+        FamilyDoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_family.class);
+                startActivity(intent);
+            }
+        });
+
+        Dentist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_dentist.class);
+                startActivity(intent);
+            }
+        });
+
+        EyeCheckup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_eyesight.class);
+                startActivity(intent);
+            }
+        });
 
         // Add a "Back" button at the end
         Button backButton = new Button(this);
@@ -55,11 +79,5 @@ public class MakeAppointmentActivity extends AppCompatActivity {
             }
         });
         linearLayout.addView(backButton);
-
-        // Add the LinearLayout to the ScrollView
-        scrollView.addView(linearLayout);
-
-        // Set the ScrollView as the content view
-        setContentView(scrollView);
     }
 }
