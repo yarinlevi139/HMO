@@ -37,8 +37,8 @@ public class doctor_profile extends AppCompatActivity {
         clinictv = findViewById(R.id.profile_clinic);
         back_btn = findViewById(R.id.profile_back);
 
-        Button login = findViewById(R.id.profile_back);
-        login.setOnClickListener(new View.OnClickListener(){
+        Button back = findViewById(R.id.profile_back);
+        back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(doctor_profile.this, main_page_worker.class);

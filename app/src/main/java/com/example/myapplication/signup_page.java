@@ -55,7 +55,7 @@ public class signup_page extends AppCompatActivity {
                     return;
 
                 }
-                if(password.equals(confirm_password) && !email.contains("@myhealth")) {
+                if(password.equals(confirm_password) && !email.toLowerCase().contains("@myhealth")) {
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override

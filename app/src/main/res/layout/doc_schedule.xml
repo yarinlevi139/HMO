@@ -31,7 +31,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/rectangularButton"
+        android:id="@+id/back_button"
         android:layout_width="139dp"
         android:layout_height="54dp"
         android:paddingStart="16dp"
@@ -44,6 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="5dp" />
+        tools:layout_editor_absoluteY="5dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

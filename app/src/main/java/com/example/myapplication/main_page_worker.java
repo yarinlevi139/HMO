@@ -44,6 +44,15 @@ public class main_page_worker extends AppCompatActivity {
             }
         });
 
+        Button signout = findViewById(R.id.sign_out);
+        signout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(main_page_worker.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
