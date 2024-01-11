@@ -26,12 +26,16 @@
         <activity android:name=".main_page_member" />
         <activity android:name=".main_page_worker" />
         <activity android:name=".MakeAppointmentActivity" />
-        <activity android:name=".CancelAppointmentActivity" />
+        <activity android:name=".MyAppointments_client" />
         <activity android:name=".doctor_messages"/>
         <activity android:name=".doctor_profile"/>
         <activity android:name=".doctor_schedule"/>
         <activity android:name=".create_client_profile"/>
         <activity android:name=".client_profile"/>
+        <activity android:name=".docsavailable_bloodtest"/>
+        <activity android:name=".docsavailable_dentist"/>
+        <activity android:name=".docsavailable_eyesight"/>
+        <activity android:name=".docsavailable_family"/>
     </application>
 
 </manifest>

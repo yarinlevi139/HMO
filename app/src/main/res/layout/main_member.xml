@@ -35,29 +35,41 @@
         app:layout_constraintTop_toBottomOf="@id/welcomeText" />
 
     <Button
-        android:id="@+id/cancelAppointmentButton"
+        android:id="@+id/myAppointmentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#3F51B5"
-        android:text="Cancel an Appointment"
+        android:text="My appointments"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/makeAppointmentButton" />
+
+    <Button
+        android:id="@+id/messageDoctorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#3F51B5"
+        android:text="Send a Message to Doctor"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/myAppointmentButton" />
 
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         android:text="Back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cancelAppointmentButton" />
+        app:layout_constraintTop_toBottomOf="@id/messageDoctorButton" />
 
     <Button
         android:id="@+id/profile_member_btn"

@@ -52,9 +52,10 @@ public class main_page_member extends AppCompatActivity {
 
         // Assuming you have two buttons in your layout with these IDs
         Button makeAppointmentButton = findViewById(R.id.makeAppointmentButton);
-        Button cancelAppointmentButton = findViewById(R.id.cancelAppointmentButton);
-        Button backButton = findViewById(R.id.backButton); // New back button
+        Button MyappointmentsButton = findViewById(R.id.myAppointmentButton);
+        Button backButton = findViewById(R.id.backButton);
         Button my_profile = findViewById(R.id.profile_member_btn);
+        Button send_message = findViewById(R.id.messageDoctorButton);
 
         makeAppointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +66,26 @@ public class main_page_member extends AppCompatActivity {
             }
         });
 
-        cancelAppointmentButton.setOnClickListener(new View.OnClickListener() {
+        MyappointmentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start your Cancel Appointment Activity here
-                Intent intent = new Intent(main_page_member.this, CancelAppointmentActivity.class);
+                // See your Appointments Activity here
+                Intent intent = new Intent(main_page_member.this, MyAppointments_client.class);
                 startActivity(intent);
             }
         });
+
+        send_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // See your Appointments Activity here
+                //TODO change the class you go to
+                Intent intent = new Intent(main_page_member.this, null);
+                startActivity(intent);
+            }
+        });
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
