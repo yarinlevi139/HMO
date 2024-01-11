@@ -2,33 +2,14 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MakeAppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-        // Create a LinearLayout to hold the buttons
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        linearLayout.setGravity(Gravity.CENTER_HORIZONTAL); // Center the contents horizontally
-
-        // Add a TextView at the start
-        TextView instructionText = new TextView(this);
-        instructionText.setText("What do you need?");
-        instructionText.setTextSize(24);
-        instructionText.setGravity(Gravity.CENTER); // Center the text
-        linearLayout.addView(instructionText);
+        setContentView(R.layout.makeappointmentactivity); 
 
         // Add appointment type buttons
         Button BloodTest = findViewById(R.id.bloodTestButton);
@@ -69,8 +50,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         });
 
         // Add a "Back" button at the end
-        Button backButton = new Button(this);
-        backButton.setText("Back");
+        Button backButton = findViewById(R.id.backButton); // Assuming you have a backButton in your XML layout
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +58,5 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                 finish();
             }
         });
-        linearLayout.addView(backButton);
     }
 }
