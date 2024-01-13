@@ -20,32 +20,28 @@ public class MakeAppointmentActivity extends AppCompatActivity {
         BloodTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_bloodtest.class);
-                startActivity(intent);
+                sendData("blood test");
             }
         });
 
         FamilyDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_family.class);
-                startActivity(intent);
+                sendData("family doctor");
             }
         });
 
         Dentist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_dentist.class);
-                startActivity(intent);
+                sendData("dentist");
             }
         });
 
         EyeCheckup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MakeAppointmentActivity.this, docsavailable_eyesight.class);
-                startActivity(intent);
+                sendData("eye checkup");
             }
         });
 
@@ -58,5 +54,14 @@ public class MakeAppointmentActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void sendData(String dataValue) {
+        // Create Intent and put extra data
+        Intent intent = new Intent(this, docsavailable.class);
+        intent.putExtra("message", dataValue);
+
+        // Start the second activity
+        startActivity(intent);
     }
 }

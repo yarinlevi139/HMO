@@ -32,10 +32,7 @@
         <activity android:name=".doctor_schedule"/>
         <activity android:name=".create_client_profile"/>
         <activity android:name=".client_profile"/>
-        <activity android:name=".docsavailable_bloodtest"/>
-        <activity android:name=".docsavailable_dentist"/>
-        <activity android:name=".docsavailable_eyesight"/>
-        <activity android:name=".docsavailable_family"/>
+        <activity android:name=".docsavailable"/>
     </application>
 
 </manifest>
