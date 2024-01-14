@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,13 +63,14 @@ public class docs_available extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     // Perform the action you want when an item is clicked
                                     String selectedDoctor = doctorNames.get(position);
-                                    Toast.makeText(docs_available.this, selectedDoctor, Toast.LENGTH_SHORT).show();
-
+                                    Intent n = new Intent(docs_available.this, time_and_date.class);
+                                    n.putExtra("Doc",selectedDoctor);
+                                    startActivity(n);
                                 }
                             });
 
                         } else {
-                                //do something
+                            Toast.makeText(getApplicationContext(),"Error while gathering available doctors",Toast.LENGTH_LONG);
                         }
                     }
                 });

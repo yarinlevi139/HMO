@@ -34,6 +34,7 @@
         <activity android:name=".client_profile"/>
         <activity android:name=".docs_available"/>
         <activity android:name=".member_messages"/>
+        <activity android:name=".time_and_date"/>
     </application>
 
 </manifest>
