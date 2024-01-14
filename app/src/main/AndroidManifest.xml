@@ -33,6 +33,7 @@
         <activity android:name=".create_client"/>
         <activity android:name=".client_profile"/>
         <activity android:name=".docs_available"/>
+        <activity android:name=".member_messages"/>
     </application>
 
 </manifest>

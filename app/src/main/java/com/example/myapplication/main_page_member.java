@@ -79,8 +79,7 @@ public class main_page_member extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // See your Appointments Activity here
-                //TODO change the class you go to
-                Intent intent = new Intent(main_page_member.this, null);
+                Intent intent = new Intent(main_page_member.this, member_messages.class);
                 startActivity(intent);
             }
         });
