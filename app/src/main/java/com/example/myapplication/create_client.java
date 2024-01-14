@@ -13,9 +13,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class create_client_profile extends AppCompatActivity {
+public class create_client extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,25 +43,25 @@ public class create_client_profile extends AppCompatActivity {
                 //Check if name or last name is empty
                 if (firstName.isEmpty() || lastName.isEmpty())
                 {
-                    Toast.makeText(create_client_profile.this, "Fill in the blank parts", Toast.LENGTH_LONG).show();
+                    Toast.makeText(create_client.this, "Fill in the blank parts", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 // Validate the age and ID
                 if (!isValidAge(ageNumber)) {
-                    Toast.makeText(create_client_profile.this, "Please enter a valid age", Toast.LENGTH_LONG).show();
+                    Toast.makeText(create_client.this, "Please enter a valid age", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 if (!isValidId(idNumber)) {
-                    Toast.makeText(create_client_profile.this, "Please enter a valid ID", Toast.LENGTH_LONG).show();
+                    Toast.makeText(create_client.this, "Please enter a valid ID", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 // Check if the ID already exists
                 checkIdExistence(idNumber, exists -> {
                     if (exists) {
-                        Toast.makeText(create_client_profile.this, "Id already exists", Toast.LENGTH_LONG).show();
+                        Toast.makeText(create_client.this, "Id already exists", Toast.LENGTH_LONG).show();
                     } else {
                         // Continue with profile creation
                         Map<String, Object> user = new LinkedHashMap<>();
@@ -76,11 +75,11 @@ public class create_client_profile extends AppCompatActivity {
                                 .document(idNumber)
                                 .set(user)
                                 .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(create_client_profile.this, "Profile added successfully", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(create_client_profile.this, MainActivity.class);
+                                    Toast.makeText(create_client.this, "Profile added successfully", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(create_client.this, main_activity.class);
                                     startActivity(intent);
                                 })
-                                .addOnFailureListener(e -> Toast.makeText(create_client_profile.this, "Error adding profile", Toast.LENGTH_LONG).show());
+                                .addOnFailureListener(e -> Toast.makeText(create_client.this, "Error adding profile", Toast.LENGTH_LONG).show());
                     }
                 });
             }
@@ -95,7 +94,7 @@ public class create_client_profile extends AppCompatActivity {
             if (task.isSuccessful()) {
                 listener.onIdCheck(task.getResult().exists());
             } else {
-                Toast.makeText(create_client_profile.this, "Error checking document: " + task.getException(), Toast.LENGTH_LONG).show();
+                Toast.makeText(create_client.this, "Error checking document: " + task.getException(), Toast.LENGTH_LONG).show();
             }
         });
     }

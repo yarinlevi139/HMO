@@ -1,8 +1,6 @@
 package com.example.myapplication;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,7 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class docsavailable extends AppCompatActivity {
+public class docs_available extends AppCompatActivity {
 
     private ListView doctorsListView;
     private Button backButton;
@@ -56,7 +54,7 @@ public class docsavailable extends AppCompatActivity {
                                 doctorNames.add(doctorName);
                             }
 
-                            doctorlist_adapter adapter = new doctorlist_adapter(docsavailable.this, doctorNames);
+                            doctorlist_adapter adapter = new doctorlist_adapter(docs_available.this, doctorNames);
                             doctorsListView.setAdapter(adapter);
 
                             doctorsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,7 +62,7 @@ public class docsavailable extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     // Perform the action you want when an item is clicked
                                     String selectedDoctor = doctorNames.get(position);
-                                    Toast.makeText(docsavailable.this, selectedDoctor, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(docs_available.this, selectedDoctor, Toast.LENGTH_SHORT).show();
 
                                 }
                             });

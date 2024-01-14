@@ -7,14 +7,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
-
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
 public class main_page_worker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +40,7 @@ public class main_page_worker extends AppCompatActivity {
         signout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(main_page_worker.this, MainActivity.class);
+                Intent intent = new Intent(main_page_worker.this, main_activity.class);
                 startActivity(intent);
             }
         });

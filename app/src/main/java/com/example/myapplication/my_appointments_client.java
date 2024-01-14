@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MyAppointments_client extends AppCompatActivity {
+public class my_appointments_client extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myappointments_client); // replace 'your_layout' with the name of your XML layout file

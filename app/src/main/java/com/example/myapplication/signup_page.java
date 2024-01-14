@@ -64,7 +64,7 @@ public class signup_page extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Toast.makeText(signup_page.this, "Welcome!",
                                                 Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(signup_page.this, create_client_profile.class);
+                                        Intent intent = new Intent(signup_page.this, create_client.class);
                                         intent.putExtra("Email", email); // Pass the email
                                         startActivity(intent);
                                     } else {
@@ -87,7 +87,7 @@ public class signup_page extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent n = new Intent(signup_page.this,MainActivity.class);
+                Intent n = new Intent(signup_page.this, main_activity.class);
                 startActivity(n);
             }
         });

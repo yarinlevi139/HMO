@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".main_activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,14 +25,14 @@
         <activity android:name=".signup_page" />
         <activity android:name=".main_page_member" />
         <activity android:name=".main_page_worker" />
-        <activity android:name=".MakeAppointmentActivity" />
-        <activity android:name=".MyAppointments_client" />
+        <activity android:name=".make_appointment_activity" />
+        <activity android:name=".my_appointments_client" />
         <activity android:name=".doctor_messages"/>
         <activity android:name=".doctor_profile"/>
         <activity android:name=".doctor_schedule"/>
-        <activity android:name=".create_client_profile"/>
+        <activity android:name=".create_client"/>
         <activity android:name=".client_profile"/>
-        <activity android:name=".docsavailable"/>
+        <activity android:name=".docs_available"/>
     </application>
 
 </manifest>

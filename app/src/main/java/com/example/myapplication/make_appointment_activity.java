@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MakeAppointmentActivity extends AppCompatActivity {
+public class make_appointment_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.makeappointmentactivity); 
@@ -58,7 +58,7 @@ public class MakeAppointmentActivity extends AppCompatActivity {
 
     private void sendData(String dataValue) {
         // Create Intent and put extra data
-        Intent intent = new Intent(this, docsavailable.class);
+        Intent intent = new Intent(this, docs_available.class);
         intent.putExtra("message", dataValue);
 
         // Start the second activity

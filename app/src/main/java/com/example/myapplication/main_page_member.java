@@ -61,7 +61,7 @@ public class main_page_member extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start your Make Appointment Activity here
-                Intent intent = new Intent(main_page_member.this, MakeAppointmentActivity.class);
+                Intent intent = new Intent(main_page_member.this, make_appointment_activity.class);
                 startActivity(intent);
             }
         });
@@ -70,7 +70,7 @@ public class main_page_member extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // See your Appointments Activity here
-                Intent intent = new Intent(main_page_member.this, MyAppointments_client.class);
+                Intent intent = new Intent(main_page_member.this, my_appointments_client.class);
                 startActivity(intent);
             }
         });

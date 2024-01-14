@@ -44,7 +44,7 @@ public class login_page extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent n = new Intent(login_page.this,MainActivity.class);
+                Intent n = new Intent(login_page.this, main_activity.class);
                 startActivity(n);
             }
         });
