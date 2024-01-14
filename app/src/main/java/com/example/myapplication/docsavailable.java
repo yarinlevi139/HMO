@@ -1,10 +1,15 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,9 +58,19 @@ public class docsavailable extends AppCompatActivity {
 
                             doctorlist_adapter adapter = new doctorlist_adapter(docsavailable.this, doctorNames);
                             doctorsListView.setAdapter(adapter);
+
+                            doctorsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    // Perform the action you want when an item is clicked
+                                    String selectedDoctor = doctorNames.get(position);
+                                    Toast.makeText(docsavailable.this, selectedDoctor, Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
                         } else {
-                            // Handle errors
-                            // You might want to display a message or take appropriate action
+                                //do something
                         }
                     }
                 });
