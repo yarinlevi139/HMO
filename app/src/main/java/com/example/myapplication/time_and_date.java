@@ -187,7 +187,7 @@ public class time_and_date extends AppCompatActivity {
 
     private void checkDocumentExistence(String selectedDate) {
         firestore.collection("Appointments")
-                .whereEqualTo("Date", selectedDate)
+                .whereEqualTo("date", selectedDate)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -240,8 +240,8 @@ public class time_and_date extends AppCompatActivity {
     // Function to populate the time spinner with available times excluding already reserved ones
     private void populateTimeSpinner(String selectedDate) {
         firestore.collection("Appointments")
-                .whereEqualTo("Date", selectedDate)
-                .whereEqualTo("Doctor", getIntent().getStringExtra("Doc"))
+                .whereEqualTo("date", selectedDate)
+                .whereEqualTo("doctor", getIntent().getStringExtra("Doc"))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -272,7 +272,7 @@ public class time_and_date extends AppCompatActivity {
         List<String> reservedHours = new ArrayList<>();
 
         for (QueryDocumentSnapshot document : querySnapshot) {
-            String reservedHour = document.getString("Hour");
+            String reservedHour = document.getString("hour");
             reservedHours.add(reservedHour);
         }
 
