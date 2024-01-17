@@ -19,6 +19,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -73,8 +75,6 @@ public class doctor_messages extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
-
             // Return the completed view to render on screen
             return convertView;
         }
@@ -108,7 +108,6 @@ public class doctor_messages extends AppCompatActivity {
 
     private void fetchAndDisplayMessages() {
         String doctorEmail = mAuth.getCurrentUser().getEmail();
-
         db.collection("messages")
                 .whereEqualTo("receiverEmail", doctorEmail)
                 .get()
@@ -119,13 +118,12 @@ public class doctor_messages extends AppCompatActivity {
                             messagesList.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Message message = document.toObject(Message.class);
+                                message.setId(document.getId());
                                 messagesList.add(message);
                             }
-
                             // Create a custom adapter
                             CustomAdapter customAdapter = new CustomAdapter(messagesList);
                             messagesListView.setAdapter(customAdapter);
-
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -155,25 +153,40 @@ public class doctor_messages extends AppCompatActivity {
             TextView messageTextView = listItemView.findViewById(R.id.messageTextView);
             messageTextView.setText(currentMessage.getSender() + ": " + currentMessage.getMessageText());
 
-            String sender1 = currentMessage.getSender();
-            String sender_email1 = currentMessage.getSenderEmail();
-
             // Set onClickListener for the "Reply" button
             Button replyButton = listItemView.findViewById(R.id.replyButton);
             replyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Add code to handle the "Reply" button click
-                    // For now, just redirect to another page
                     Intent intent = new Intent(doctor_messages.this, doctor_reply.class);
                     intent.putExtra("sender1", currentMessage.getSender());
                     intent.putExtra("sender_email1", currentMessage.getSenderEmail());
                     intent.putExtra("receivedMessage", currentMessage.getMessageText());
                     intent.putExtra("receiver",currentMessage.getReceiver());
+
                     startActivity(intent);
+
+                    // Delete the message from Firestore
+                    db.collection("messages").document(currentMessage.getId())
+                            .delete()
+                            .addOnSuccessListener(aVoid -> {
+                                // Document successfully deleted
+                                // Remove the deleted message from the list
+                                remove(currentMessage);
+
+                                // Notify the adapter that the data set has changed
+                                notifyDataSetChanged();
+                            })
+                            .addOnFailureListener(e -> {
+                                // Handle the error
+                            });
                 }
             });
+
+
             return listItemView;
         }
     }
+
 }
