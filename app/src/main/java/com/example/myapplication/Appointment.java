@@ -6,12 +6,15 @@ public class Appointment {
     private String Doctor;
     private String Name;
 
+    private String doc_type;
+
     // Constructors
-    public Appointment(String date, String time, String doctor, String userName, String s) {
+    public Appointment(String date, String time, String doctor, String userName, String s, String type) {
         this.Date = date;
         this.Hour = time;
         this.Doctor = doctor;
         this.Name = userName;
+        this.doc_type = type;
     }
 
     // Getters
@@ -31,6 +34,10 @@ public class Appointment {
         return Name;
     }
 
+    public String getDocType() {
+        return doc_type;
+    }
+
     // Setters
     public void setDate(String date) {
         this.Date = date;
@@ -46,5 +53,9 @@ public class Appointment {
 
     public void setName(String name) {
         this.Name = name;
+    }
+
+    public void setDocType(String type) {
+        this.doc_type = type;
     }
 }

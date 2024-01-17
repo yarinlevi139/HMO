@@ -1,0 +1,33 @@
+<!-- res/layout/cancel_client_appointments.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- TextViews to display appointment details -->
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"/>
+
+    <!-- Add more TextViews for other details if needed -->
+
+    <!-- Button to the right of the text -->
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Cancel"
+        android:backgroundTint="@color/black"
+        android:textColor="#FFFFFF"/>
+</LinearLayout>
