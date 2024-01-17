@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -42,9 +43,56 @@ public class my_appointments_client extends AppCompatActivity {
                             String hour = document.getString("hour");
                             String name = document.getString("name");
                             String doc_type = document.getString("docType");
-                            appointments.add(date + " " + hour + " - Appointment with " + doctor + " type: " + doc_type);
+                            String appointmentDetails = "Date: " + date + "\n" +
+                                    "Time: " + hour + "\n" +
+                                    "Doctor's Name: " + doctor + "\n" +
+                                    "Doctor's Profession: " + doc_type;
+                            appointments.add(appointmentDetails);
                         }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, appointments);
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.cancel_client_appointments, R.id.dateTextView, appointments) {
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                View view = super.getView(position, convertView, parent);
+
+                                // Set appointment details for each item
+                                TextView dateTextView = view.findViewById(R.id.dateTextView);
+                                TextView timeTextView = view.findViewById(R.id.timeTextView);
+                                Button cancelButton = view.findViewById(R.id.cancelButton);
+
+                                String appointmentDetails = appointments.get(position);
+                                // Parse the appointmentDetails string and set the values to respective TextViews
+
+                                // Get the document ID for the appointment
+                                String documentId = task.getResult().getDocuments().get(position).getId();
+
+                                // Set an OnClickListener for the cancel button
+                                // Inside the OnClickListener for the cancel button
+                                cancelButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // Delete the appointment document
+                                        db.collection("Appointments").document(documentId)
+                                                .delete()
+                                                .addOnSuccessListener(aVoid -> {
+                                                    // Document successfully deleted
+                                                    // Remove the canceled appointment from the list
+                                                    appointments.remove(position);
+
+                                                    // Notify the adapter that the data set has changed
+                                                    notifyDataSetChanged();
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    // Handle the error
+                                                });
+                                    }
+                                });
+
+
+                                return view;
+                            }
+                        };
+
                         appointmentList.setAdapter(adapter);
                     } else {
                         // Handle the error
