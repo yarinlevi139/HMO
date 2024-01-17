@@ -2,15 +2,19 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -29,7 +33,9 @@ public class doctor_messages extends AppCompatActivity {
     private static final String TAG = "DoctorMessagesActivity";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private String sender1;
 
+    private String sender_email1;
     private ListView messagesListView;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> messagesList;
@@ -72,13 +78,58 @@ public class doctor_messages extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String sender = document.getString("sender");
                                 String messageText = document.getString("messageText");
+                                String sender_email = document.getString("senderEmail");
+
                                 messagesList.add(sender + ": " + messageText);
                             }
-                            adapter.notifyDataSetChanged();
+
+                            // Create a custom adapter
+                            CustomAdapter customAdapter = new CustomAdapter(messagesList);
+                            messagesListView.setAdapter(customAdapter);
+
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+    }
+
+    private class CustomAdapter extends ArrayAdapter<String> {
+
+        public CustomAdapter(ArrayList<String> messagesList) {
+            super(doctor_messages.this, R.layout.message_item, messagesList);
+        }
+
+        @NonNull
+        @Override
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View listItemView = convertView;
+            if (listItemView == null) {
+                listItemView = LayoutInflater.from(getContext()).inflate(R.layout.message_item, parent, false);
+            }
+
+            // Get the current message
+            String currentMessage = getItem(position);
+
+            // Set the text for the TextView
+            TextView messageTextView = listItemView.findViewById(R.id.messageTextView);
+            messageTextView.setText(currentMessage);
+
+            // Set onClickListener for the "Reply" button
+            Button replyButton = listItemView.findViewById(R.id.replyButton);
+            replyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Add code to handle the "Reply" button click
+                    // For now, just redirect to another page
+                    Intent intent = new Intent(doctor_messages.this, doctor_reply.class);
+                    intent.putExtra("sender1", sender1);
+                    intent.putExtra("sender_email1", sender_email1);
+                    startActivity(intent);
+                }
+            });
+
+            return listItemView;
+        }
     }
 }
