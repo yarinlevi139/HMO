@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 public class Message {
+    private String id; // Add this line
     private String sender;
     private String receiver;
     private String senderEmail;
@@ -11,12 +12,13 @@ public class Message {
         // Default constructor required for Firestore
     }
 
-    public Message(String sender, String receiver, String senderEmail, String receiverEmail, String messageText) {
+    public Message(String sender, String receiver, String senderEmail, String receiverEmail, String messageText, String id) {
         this.sender = sender;
         this.receiver = receiver;
         this.senderEmail = senderEmail;
         this.receiverEmail = receiverEmail;
         this.messageText = messageText;
+        this.id = id;
     }
 
     public String getSender() {
@@ -57,6 +59,14 @@ public class Message {
 
     public void setMessageText(String messageText) {
         this.messageText = messageText;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
 

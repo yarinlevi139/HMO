@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,26 +45,29 @@ public class doctor_reply extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                // Get the sender and receiver details
-                // Get the sender and receiver details
-                // Retrieve the sender's name and the received message from the intent
-                String senderName = getIntent().getStringExtra("receiver");
-                String senderEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
-                String receivedMessage = getIntent().getStringExtra("receivedMessage");
-                receivedMessageTextView.setText(senderName + ": " + receivedMessage);
-                String receiverName = getIntent().getStringExtra("sender1");
-
-                String receiverEmail = getIntent().getStringExtra("sender_email1");
-
-// Get the message text from the EditText
+                // Get the message text from the EditText
                 String replyMessage = replyEditText.getText().toString();
 
-// Create a new Message object
-                Message reply = new Message(senderName, receiverName, senderEmail, receiverEmail, replyMessage);
+                // Check if the reply message is empty
+                if (replyMessage.trim().isEmpty()) {
+                    // Show a notification to the doctor
+                    Toast.makeText(doctor_reply.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Get the sender and receiver details
+                    String senderName = getIntent().getStringExtra("receiver");
+                    String senderEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+                    String receivedMessage = getIntent().getStringExtra("receivedMessage");
+                    receivedMessageTextView.setText(senderName + ": " + receivedMessage);
+                    String receiverName = getIntent().getStringExtra("sender1");
+                    String receiverEmail = getIntent().getStringExtra("sender_email1");
+                    String messageID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
+                    // Create a new Message object
+                    Message reply = new Message(senderName, receiverName, senderEmail, receiverEmail, replyMessage, messageID);
 
-                // Add the reply to the Firestore database
-                addReplyToFirestore(reply);
+                    // Add the reply to the Firestore database
+                    addReplyToFirestore(reply);
+                }
             }
         });
     }
