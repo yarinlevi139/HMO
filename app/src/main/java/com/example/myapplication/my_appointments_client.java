@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class my_appointments_client extends AppCompatActivity {
@@ -61,18 +63,39 @@ public class my_appointments_client extends AppCompatActivity {
                             return time1.compareTo(time2);
                         });
 
+                        // Get current date and time
+                        long currentTimeMillis = System.currentTimeMillis();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        Date currentDate = new Date(currentTimeMillis);
+
                         // Iterate over sorted documents
                         for (QueryDocumentSnapshot document : sortedDocuments) {
                             String date = document.getString("date");
-                            String doctor = document.getString("doctor");
-                            String hour = document.getString("hour");
-                            String name = document.getString("name");
-                            String doc_type = document.getString("docType");
-                            String appointmentDetails = "Date: " + date + "\n" +
-                                    "Time: " + hour + "\n" +
-                                    "Doctor's Name: " + doctor + "\n" +
-                                    "Doctor's Profession: " + doc_type;
-                            appointments.add(appointmentDetails);
+                            String time = document.getString("hour");
+
+                            // Combine date and time to create a datetime string
+                            String appointmentDateTime = date + " " + time;
+
+                            // Parse datetime string to Date
+                            Date appointmentDate = null;
+                            try {
+                                appointmentDate = dateFormat.parse(appointmentDateTime);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            // Check if the appointment is relevant (after the current date and time)
+                            if (appointmentDate != null && appointmentDate.after(currentDate)) {
+                                String doctor = document.getString("doctor");
+                                String hour = document.getString("hour");
+                                String name = document.getString("name");
+                                String doc_type = document.getString("docType");
+                                String appointmentDetails = "Date: " + date + "\n" +
+                                        "Time: " + hour + "\n" +
+                                        "Doctor's Name: " + doctor + "\n" +
+                                        "Doctor's Profession: " + doc_type;
+                                appointments.add(appointmentDetails);
+                            }
                         }
 
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.cancel_client_appointments, R.id.dateTextView, appointments) {
