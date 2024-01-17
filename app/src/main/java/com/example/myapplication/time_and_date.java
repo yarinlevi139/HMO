@@ -34,7 +34,7 @@ public class time_and_date extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
 
-    private Appointment appointment = new Appointment("","","","","");
+    private Appointment appointment = new Appointment("","","","","", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +111,7 @@ public class time_and_date extends AppCompatActivity {
                     String selectedTime = spinnerTime.getSelectedItem().toString();
                     appointment.setHour(selectedTime);
                     appointment.setDoctor(getIntent().getStringExtra("Doc"));
+                    appointment.setDocType(getIntent().getStringExtra("type"));
                     getUsernameFromDatabase(appointment);
 
 
