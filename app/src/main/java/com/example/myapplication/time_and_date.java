@@ -1,5 +1,4 @@
 package com.example.myapplication;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +19,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -127,18 +126,40 @@ public class time_and_date extends AppCompatActivity {
         setAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firestore.collection("Appointments").add(appointment)
-                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                if (task.isSuccessful()) {
-                                    finish();
-                                } else {
+                // Check if a date and time have been selected
+                if (appointment.getDate().equals("") || appointment.getHour().equals("Choose time")) {
+                    // If not, show a Toast message
+                    if (appointment.getDate().equals("")) {
+                        Toast.makeText(time_and_date.this, "Please choose a date", Toast.LENGTH_SHORT).show();
+                    } else if (appointment.getHour().equals("Choose time")) {
+                        Toast.makeText(time_and_date.this, "Please choose a time", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // If a date and time have been selected, set the appointment
+                    firestore.collection("Appointments").add(appointment)
+                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(time_and_date.this, "Appointment scheduled successfully", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+                                        // Handle errors
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
+
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
 
