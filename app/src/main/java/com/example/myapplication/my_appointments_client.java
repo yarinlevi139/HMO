@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
@@ -37,7 +38,31 @@ public class my_appointments_client extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         List<String> appointments = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        List<QueryDocumentSnapshot> sortedDocuments = new ArrayList<>();
+
+                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                            sortedDocuments.add((QueryDocumentSnapshot) document);
+                        }
+
+                        // Sort documents by date and time
+                        sortedDocuments.sort((doc1, doc2) -> {
+                            String date1 = doc1.getString("date");
+                            String time1 = doc1.getString("hour");
+                            String date2 = doc2.getString("date");
+                            String time2 = doc2.getString("hour");
+
+                            // Compare dates
+                            int dateComparison = date1.compareTo(date2);
+                            if (dateComparison != 0) {
+                                return dateComparison;
+                            }
+
+                            // If dates are equal, compare times
+                            return time1.compareTo(time2);
+                        });
+
+                        // Iterate over sorted documents
+                        for (QueryDocumentSnapshot document : sortedDocuments) {
                             String date = document.getString("date");
                             String doctor = document.getString("doctor");
                             String hour = document.getString("hour");
@@ -64,7 +89,7 @@ public class my_appointments_client extends AppCompatActivity {
                                 // Parse the appointmentDetails string and set the values to respective TextViews
 
                                 // Get the document ID for the appointment
-                                String documentId = task.getResult().getDocuments().get(position).getId();
+                                String documentId = sortedDocuments.get(position).getId();
 
                                 // Set an OnClickListener for the cancel button
                                 // Inside the OnClickListener for the cancel button
@@ -87,12 +112,9 @@ public class my_appointments_client extends AppCompatActivity {
                                                 });
                                     }
                                 });
-
-
                                 return view;
                             }
                         };
-
                         appointmentList.setAdapter(adapter);
                     } else {
                         // Handle the error
