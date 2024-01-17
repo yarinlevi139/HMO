@@ -93,11 +93,11 @@ public class client_profile extends AppCompatActivity {
     private void displayUserData(String firstName, String lastName, String Age, String ID, String email) {
         // Update TextViews with the retrieved data
         greet.setText("Hello " + firstName);
-        first_name.setText("    First Name: " + firstName);
-        last_name.setText("    Last Name: " + lastName);
-        age.setText("    Age: " + Age);
-        id.setText("    ID: " + ID);
-        email_address.setText("    Email: " + email);
+        first_name.setText("First Name: " + firstName);
+        last_name.setText("Last Name: " + lastName);
+        age.setText("Age: " + Age);
+        id.setText("ID: " + ID);
+        email_address.setText("Email: " + email);
     }
 }
 
