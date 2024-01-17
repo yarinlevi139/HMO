@@ -1,4 +1,5 @@
 package com.example.myapplication;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,9 +21,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class time_and_date extends AppCompatActivity {
@@ -33,7 +37,7 @@ public class time_and_date extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
 
-    private Appointment appointment = new Appointment("","","","","", "");
+    private Appointment appointment = new Appointment("", "", "", "", "", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +116,6 @@ public class time_and_date extends AppCompatActivity {
                     appointment.setDoctor(getIntent().getStringExtra("Doc"));
                     appointment.setDocType(getIntent().getStringExtra("type"));
                     getUsernameFromDatabase(appointment);
-
-
                 }
             }
 
@@ -162,7 +164,6 @@ public class time_and_date extends AppCompatActivity {
 
     }
 
-
     private void getUsernameFromDatabase(Appointment appointment) {
         // Assuming you have FirebaseAuth and FirebaseFirestore instances
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -206,7 +207,6 @@ public class time_and_date extends AppCompatActivity {
         }
     }
 
-
     private void checkDocumentExistence(String selectedDate) {
         firestore.collection("Appointments")
                 .whereEqualTo("date", selectedDate)
@@ -222,7 +222,7 @@ public class time_and_date extends AppCompatActivity {
                                 List<String> reservedHours = getReservedHours(querySnapshot);
 
                                 // Populate the spinner with available times
-                                populateAvailableTimes(reservedHours);
+                                populateAvailableTimes(selectedDate, reservedHours);
 
                             } else {
                                 // No document exists for the selected date
@@ -234,7 +234,6 @@ public class time_and_date extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
     // Function to populate the time spinner with all times from 9:00 - 17:00 in 15-minute intervals
@@ -258,36 +257,29 @@ public class time_and_date extends AppCompatActivity {
         spinnerTime.setAdapter(timeAdapter);
     }
 
-
     // Function to populate the time spinner with available times excluding already reserved ones
-    private void populateTimeSpinner(String selectedDate) {
-        firestore.collection("Appointments")
-                .whereEqualTo("date", selectedDate)
-                .whereEqualTo("doctor", getIntent().getStringExtra("Doc"))
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            QuerySnapshot querySnapshot = task.getResult();
-                            if (querySnapshot != null && !querySnapshot.isEmpty()) {
-                                // Document(s) exist for the selected date and doctor
-                                // Get the list of reserved hours
-                                List<String> reservedHours = getReservedHours(querySnapshot);
+    // Function to populate the time spinner with available times excluding already reserved ones
+    private void populateAvailableTimes(String selectedDate, List<String> reservedHours) {
 
-                                // Populate the spinner with available times
-                                populateAvailableTimes(reservedHours);
-                            } else {
-                                // No document exists for the selected date and doctor
-                                // Populate with all times from 9:00 - 17:00
-                                populateAllTimes();
-                            }
-                        } else {
-                            // Handle errors
-                        }
-                    }
-                });
+        // Create a list of times from 9:00 to 17:00 with 15-minute intervals excluding the reserved hours
+        List<String> availableTimes = new ArrayList<>();
+        availableTimes.add("Choose time");
+
+        for (int hour = 9; hour <= 16; hour++) {
+            for (int minute = 0; minute < 60; minute += 15) {
+                String time = String.format("%02d:%02d", hour, minute);
+                if (!isTimeBeforeCurrentTime(selectedDate, time) && !reservedHours.contains(time)) {
+                    availableTimes.add(time);
+                }
+            }
+        }
+
+        // Create an array adapter for the time spinner
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, availableTimes);
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTime.setAdapter(timeAdapter);
     }
+
 
     // Function to get reserved hours from a query snapshot
     private List<String> getReservedHours(QuerySnapshot querySnapshot) {
@@ -301,28 +293,20 @@ public class time_and_date extends AppCompatActivity {
         return reservedHours;
     }
 
+    // Function to check if the given time is before the current time
+    private boolean isTimeBeforeCurrentTime(String selectedDate, String selectedTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String dateTimeString = selectedDate + " " + selectedTime;
 
-    // Function to populate the time spinner with available times
-    private void populateAvailableTimes(List<String> reservedHours) {
+        try {
+            Date selectedDateTime = sdf.parse(dateTimeString);
+            Date currentDateTime = new Date();
 
-        // Create a list of times from 9:00 to 17:00 with 15-minute intervals excluding the reserved hours
-        List<String> availableTimes = new ArrayList<>();
-        availableTimes.add("Choose time");
-
-
-
-        for (int hour = 9; hour <= 16; hour++) {
-            for (int minute = 0; minute < 60; minute += 15) {
-                String time = String.format("%02d:%02d", hour, minute);
-                if (!reservedHours.contains(time)) {
-                    availableTimes.add(time);
-                }
-            }
+            return selectedDateTime.before(currentDateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        // Create an array adapter for the time spinner
-        ArrayAdapter<String> timeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, availableTimes);
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTime.setAdapter(timeAdapter);
+        return false;
     }
 }
