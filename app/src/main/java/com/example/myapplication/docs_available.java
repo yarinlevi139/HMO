@@ -33,16 +33,16 @@ public class docs_available extends AppCompatActivity {
         doctorsListView = findViewById(R.id.doctorsListView);
         backButton = findViewById(R.id.backButton);
 
-        String doctorType = getIntent().getStringExtra("message");
+        String temp = getIntent().getStringExtra("message");
 
         TextView instructionText = findViewById(R.id.instructionText);
-        instructionText.setText("Here is the list of doctors who are available for " + doctorType + ":");
+        instructionText.setText("Here is the list of doctors who are available for " + temp + ":");
 
         // Replace 'YourFirebaseCollection' and 'YourDoctorType' with your actual Firebase collection and doctor type
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference doctorsCollection = db.collection("doctors");
 
-        doctorsCollection.whereEqualTo("type", doctorType)
+        doctorsCollection.whereEqualTo("type", temp)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -65,7 +65,6 @@ public class docs_available extends AppCompatActivity {
                                     String selectedDoctor = doctorNames.get(position);
                                     Intent n = new Intent(docs_available.this, time_and_date.class);
                                     n.putExtra("Doc",selectedDoctor);
-                                    n.putExtra("type", doctorType);
                                     startActivity(n);
                                 }
                             });

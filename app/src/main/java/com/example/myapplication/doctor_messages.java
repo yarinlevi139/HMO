@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,7 +21,6 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -33,12 +32,54 @@ public class doctor_messages extends AppCompatActivity {
     private static final String TAG = "DoctorMessagesActivity";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private String sender1;
 
-    private String sender_email1;
     private ListView messagesListView;
     private ArrayAdapter<String> adapter;
-    private ArrayList<String> messagesList;
+    private ArrayList<Message> messagesList;
+
+    public class MessagesAdapter extends ArrayAdapter<Message> {
+        public MessagesAdapter(Context context, ArrayList<Message> messages) {
+            super(context, 0, messages);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // Get the data item for this position
+            Message message = getItem(position);
+
+            // Check if an existing view is being reused, otherwise inflate the view
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_item, parent, false);
+            }
+
+            // Lookup view for data population
+            TextView messageTextView = convertView.findViewById(R.id.messageTextView);
+
+            // Populate the data into the template view using the data object
+            messageTextView.setText(message.getSender() + ": " + message.getMessageText());
+
+            // Set onClickListener for the "Reply" button
+            Button replyButton = convertView.findViewById(R.id.replyButton);
+            replyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Add code to handle the "Reply" button click
+                    // For now, just redirect to another page
+                    Intent intent = new Intent(doctor_messages.this, doctor_reply.class);
+                    intent.putExtra("sender1", message.getSender());
+                    intent.putExtra("sender_email1", message.getSenderEmail());
+                    intent.putExtra("receivedMessage", message.getMessageText());
+                    intent.putExtra("receiver",message.getReceiver());
+                    startActivity(intent);
+                }
+            });
+
+
+            // Return the completed view to render on screen
+            return convertView;
+        }
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doc_messages);
@@ -57,7 +98,8 @@ public class doctor_messages extends AppCompatActivity {
 
         messagesListView = findViewById(R.id.messagesListView); // Replace with your ListView ID
         messagesList = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messagesList);
+        MessagesAdapter adapter = new MessagesAdapter(this, messagesList);
+        messagesListView.setAdapter(adapter);
         messagesListView.setAdapter(adapter);
 
         // Fetch and display messages
@@ -76,11 +118,8 @@ public class doctor_messages extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             messagesList.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String sender = document.getString("sender");
-                                String messageText = document.getString("messageText");
-                                String sender_email = document.getString("senderEmail");
-
-                                messagesList.add(sender + ": " + messageText);
+                                Message message = document.toObject(Message.class);
+                                messagesList.add(message);
                             }
 
                             // Create a custom adapter
@@ -94,9 +133,10 @@ public class doctor_messages extends AppCompatActivity {
                 });
     }
 
-    private class CustomAdapter extends ArrayAdapter<String> {
 
-        public CustomAdapter(ArrayList<String> messagesList) {
+    private class CustomAdapter extends ArrayAdapter<Message> {
+
+        public CustomAdapter(ArrayList<Message> messagesList) {
             super(doctor_messages.this, R.layout.message_item, messagesList);
         }
 
@@ -108,12 +148,15 @@ public class doctor_messages extends AppCompatActivity {
                 listItemView = LayoutInflater.from(getContext()).inflate(R.layout.message_item, parent, false);
             }
 
-            // Get the current message
-            String currentMessage = getItem(position);
+            // Get the current Message object
+            Message currentMessage = getItem(position);
 
             // Set the text for the TextView
             TextView messageTextView = listItemView.findViewById(R.id.messageTextView);
-            messageTextView.setText(currentMessage);
+            messageTextView.setText(currentMessage.getSender() + ": " + currentMessage.getMessageText());
+
+            String sender1 = currentMessage.getSender();
+            String sender_email1 = currentMessage.getSenderEmail();
 
             // Set onClickListener for the "Reply" button
             Button replyButton = listItemView.findViewById(R.id.replyButton);
@@ -123,12 +166,13 @@ public class doctor_messages extends AppCompatActivity {
                     // Add code to handle the "Reply" button click
                     // For now, just redirect to another page
                     Intent intent = new Intent(doctor_messages.this, doctor_reply.class);
-                    intent.putExtra("sender1", sender1);
-                    intent.putExtra("sender_email1", sender_email1);
+                    intent.putExtra("sender1", currentMessage.getSender());
+                    intent.putExtra("sender_email1", currentMessage.getSenderEmail());
+                    intent.putExtra("receivedMessage", currentMessage.getMessageText());
+                    intent.putExtra("receiver",currentMessage.getReceiver());
                     startActivity(intent);
                 }
             });
-
             return listItemView;
         }
     }

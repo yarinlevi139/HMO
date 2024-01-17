@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Objects;
 
 public class doctor_reply extends AppCompatActivity {
 
@@ -38,19 +41,26 @@ public class doctor_reply extends AppCompatActivity {
         receivedMessageTextView.setText(receivedMessage);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 // Get the sender and receiver details
-                String senderName = "Doctor";  // Update with the actual doctor name
+                // Get the sender and receiver details
+                // Retrieve the sender's name and the received message from the intent
+                String senderName = getIntent().getStringExtra("receiver");
+                String senderEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+                String receivedMessage = getIntent().getStringExtra("receivedMessage");
+                receivedMessageTextView.setText(senderName + ": " + receivedMessage);
                 String receiverName = getIntent().getStringExtra("sender1");
-                String senderEmail = mAuth.getCurrentUser().getEmail();
+
                 String receiverEmail = getIntent().getStringExtra("sender_email1");
 
-                // Get the message text from the EditText
+// Get the message text from the EditText
                 String replyMessage = replyEditText.getText().toString();
 
-                // Create a new Message object
+// Create a new Message object
                 Message reply = new Message(senderName, receiverName, senderEmail, receiverEmail, replyMessage);
+
 
                 // Add the reply to the Firestore database
                 addReplyToFirestore(reply);
