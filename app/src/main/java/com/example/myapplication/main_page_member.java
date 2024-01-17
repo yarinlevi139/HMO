@@ -66,6 +66,15 @@ public class main_page_member extends AppCompatActivity {
             }
         });
 
+        Button check_messages = findViewById(R.id.check_messages);
+        check_messages.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(main_page_member.this, member_check_messages.class);
+                startActivity(intent);
+            }
+        });
+
         MyappointmentsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

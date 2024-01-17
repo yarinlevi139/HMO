@@ -36,6 +36,7 @@
         <activity android:name=".member_messages"/>
         <activity android:name=".time_and_date"/>
         <activity android:name=".doctor_reply"/>
+        <activity android:name=".member_check_messages"/>
     </application>
 
 </manifest>

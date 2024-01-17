@@ -36,6 +36,7 @@ public class main_page_worker extends AppCompatActivity {
             }
         });
 
+
         Button signout = findViewById(R.id.sign_out);
         signout.setOnClickListener(new View.OnClickListener(){
             @Override
