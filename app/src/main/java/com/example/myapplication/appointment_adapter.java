@@ -14,10 +14,9 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+public class appointment_adapter extends ArrayAdapter<String> {
 
-public class appointment_adapter extends ArrayAdapter<Appointment> {
-
-    public appointment_adapter(Context context, List<Appointment> items) {
+    public appointment_adapter(Context context, List<String> items) {
         super(context, R.layout.list_item, items);
     }
 
@@ -35,21 +34,17 @@ public class appointment_adapter extends ArrayAdapter<Appointment> {
         Button button = view.findViewById(R.id.button);
 
         // Set the text and button click listener as needed
-        Appointment appointment = getItem(position);
-        if (appointment != null) {
-            String itemText = "Client Name: " + appointment.getName() + "\n" +
-                    "Time: " + appointment.getHour();
-            textView.setText(itemText);
+        String itemText = getItem(position);
+        textView.setText(itemText);
 
-            // Set a click listener for the button (you can customize this)
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Handle button click
-                    // You can use 'position' to identify the clicked item if needed
-                }
-            });
-        }
+        // Set a click listener for the button (you can customize this)
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle button click
+                // You can use 'position' to identify the clicked item if needed
+            }
+        });
 
         return view;
     }

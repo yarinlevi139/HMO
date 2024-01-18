@@ -6,6 +6,7 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +52,7 @@ public class doctor_schedule extends AppCompatActivity {
         calendarView.setMaxDate(calendar.getTimeInMillis());
 
         // Sample data for the initial list
-        List<Appointment> dataList = new ArrayList<>();
+        List<String> dataList = new ArrayList<>();
 
         // Create your custom adapter and set it to the ListView
         adapter = new appointment_adapter(this, dataList);
@@ -87,32 +88,22 @@ public class doctor_schedule extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        List<Appointment> appointments = new ArrayList<>();
+                        List<String> appointments = new ArrayList<>();
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
                             // Extract appointment details
                             String clientName = document.getString(FIELD_NAME);
                             String time = document.getString(FIELD_HOUR);
-                            appointments.add(new Appointment(selectedDate, time, loggedInDoctorEmail, clientName, "", "", "", ""));
+                            String appointmentDetails = "Client Name: " + clientName + "\n" +
+                                    "Time: " + time;
+                            appointments.add(appointmentDetails);
                         }
 
-                        // Sort the list of appointments by time
-                        appointments.sort((a1, a2) -> {
-                            try {
-                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                                return sdf.parse(a1.getHour()).compareTo(sdf.parse(a2.getHour()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                                return 0;
-                            }
-                        });
-
-                        // Debugging: Log the fetched and sorted appointments
-                        for (Appointment appointment : appointments) {
-                            Log.d("FetchAppointments", "Appointment: Client Name - " + appointment.getName() +
-                                    ", Time - " + appointment.getHour());
+                        // Debugging: Log the fetched appointments
+                        for (String appointment : appointments) {
+                            Log.d("FetchAppointments", "Appointment: " + appointment);
                         }
 
-                        // Update the adapter's data with the fetched and sorted appointments
+                        // Update the adapter's data with the fetched appointments and notify the change
                         runOnUiThread(() -> {
                             adapter.clear();
                             adapter.addAll(appointments);
