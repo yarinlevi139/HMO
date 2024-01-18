@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -20,6 +22,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 public class my_appointments_client extends AppCompatActivity {
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +39,11 @@ public class my_appointments_client extends AppCompatActivity {
                 finish();
             }
         });
-
+        mAuth = FirebaseAuth.getInstance();
+        String loggedInClientEmail = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Appointments")
+                .whereEqualTo("clientEmail", loggedInClientEmail)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -91,7 +96,7 @@ public class my_appointments_client extends AppCompatActivity {
                             if (appointmentDate != null && appointmentDate.after(currentDate)) {
                                 String doctor = document.getString("doctor");
                                 String hour = document.getString("hour");
-                                String name = document.getString("name");
+//                                String name = document.getString("name"); clients name
                                 String doc_type = document.getString("docType");
                                 String appointmentDetails = "Date: " + date + "\n" +
                                         "Time: " + hour + "\n" +

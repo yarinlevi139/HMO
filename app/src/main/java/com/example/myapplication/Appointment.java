@@ -8,13 +8,20 @@ public class Appointment {
 
     private String doc_type;
 
+    private String doc_email;
+
+    private String client_email;
+
+
     // Constructors
-    public Appointment(String date, String time, String doctor, String userName, String s, String type) {
+    public Appointment(String date, String time, String doctor, String userName, String s, String type, String doc_email, String client_email ) {
         this.Date = date;
         this.Hour = time;
         this.Doctor = doctor;
         this.Name = userName;
         this.doc_type = type;
+        this.doc_email = doc_email;
+        this.client_email = client_email;
     }
 
     // Getters
@@ -38,6 +45,14 @@ public class Appointment {
         return doc_type;
     }
 
+    public String getDocEmail() {
+        return doc_email;
+    }
+
+    public String getClientEmail() {
+        return client_email;
+    }
+
     // Setters
     public void setDate(String date) {
         this.Date = date;
@@ -57,5 +72,13 @@ public class Appointment {
 
     public void setDocType(String type) {
         this.doc_type = type;
+    }
+
+    public void setDocEmail(String docEmail) {
+        this.doc_email = docEmail;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.client_email = clientEmail;
     }
 }

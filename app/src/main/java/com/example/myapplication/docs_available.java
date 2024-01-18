@@ -49,10 +49,15 @@ public class docs_available extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             List<String> doctorNames = new ArrayList<>();
+                            List<String> doctorLastName = new ArrayList<>();
+                            List<String> doctorEmail = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Assuming "name" is the field you want to display
                                 String doctorName = document.getString("name");
+                                String docLastName = document.getString("last_name");
+                                String docEmail = document.getString("email");
                                 doctorNames.add(doctorName);
+                                doctorLastName.add(docLastName);
+                                doctorEmail.add(docEmail);
                             }
 
                             doctorlist_adapter adapter = new doctorlist_adapter(docs_available.this, doctorNames);
@@ -63,9 +68,14 @@ public class docs_available extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     // Perform the action you want when an item is clicked
                                     String selectedDoctor = doctorNames.get(position);
+                                    String selectedDocLastName = doctorLastName.get(position);
+                                    String selectedDocEmail = doctorEmail.get(position);
+
                                     Intent n = new Intent(docs_available.this, time_and_date.class);
-                                    n.putExtra("Doc",selectedDoctor);
+                                    n.putExtra("Doc", selectedDoctor);
                                     n.putExtra("type", doctorType);
+                                    n.putExtra("docLastName", selectedDocLastName);
+                                    n.putExtra("docEmail", selectedDocEmail);
                                     startActivity(n);
                                 }
                             });

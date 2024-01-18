@@ -37,7 +37,9 @@ public class time_and_date extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
 
-    private Appointment appointment = new Appointment("", "", "", "", "", "");
+    private FirebaseAuth mAuth;
+
+    private Appointment appointment = new Appointment("", "", "", "", "", "", "", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class time_and_date extends AppCompatActivity {
 
         // Initialize Firebase Firestore
         firestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         // Initialize time spinner and title
         spinnerTime = findViewById(R.id.spinnerTime);
@@ -115,6 +118,8 @@ public class time_and_date extends AppCompatActivity {
                     appointment.setHour(selectedTime);
                     appointment.setDoctor(getIntent().getStringExtra("Doc"));
                     appointment.setDocType(getIntent().getStringExtra("type"));
+                    appointment.setDocEmail(getIntent().getStringExtra("docEmail"));
+                    appointment.setClientEmail(mAuth.getCurrentUser().getEmail());
                     getUsernameFromDatabase(appointment);
                 }
             }
