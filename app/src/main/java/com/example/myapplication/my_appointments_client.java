@@ -39,9 +39,12 @@ public class my_appointments_client extends AppCompatActivity {
                 finish();
             }
         });
+
         mAuth = FirebaseAuth.getInstance();
         String loggedInClientEmail = mAuth.getCurrentUser().getEmail();
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         db.collection("Appointments")
                 .whereEqualTo("clientEmail", loggedInClientEmail)
                 .get()

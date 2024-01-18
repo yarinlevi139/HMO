@@ -14,7 +14,7 @@
 
     <!-- Button to the right of the text -->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/doctor_cancel_appointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"

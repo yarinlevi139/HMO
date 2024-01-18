@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.util.Locale;
 public class doctor_schedule extends AppCompatActivity {
     private static final String COLLECTION_APPOINTMENTS = "Appointments";
     private static final String FIELD_DOC_EMAIL = "docEmail";
+    private static final String FIELD_CLIENT_EMAIL = "clientEmail";
     private static final String FIELD_DATE = "date";
     private static final String FIELD_NAME = "name";
     private static final String FIELD_HOUR = "hour";
@@ -49,7 +51,7 @@ public class doctor_schedule extends AppCompatActivity {
         calendarView.setMinDate(calendar.getTimeInMillis());
 
         // Set the maximum date to 7 days from today
-        calendar.add(Calendar.DATE, 7);
+        calendar.add(Calendar.DATE, 30);
         calendarView.setMaxDate(calendar.getTimeInMillis());
 
         // Sample data for the initial list
@@ -72,9 +74,11 @@ public class doctor_schedule extends AppCompatActivity {
             // Set the day of the week
             setDayOfWeek(selectedDate);
         });
+
+
+
     }
 
-    // Method to fetch and display appointments for the selected date
     // Method to fetch and display appointments for the selected date
     private void fetchAndDisplayAppointments(String selectedDate) {
         // Add your logic here to fetch appointments for the logged-in doctor
@@ -91,12 +95,19 @@ public class doctor_schedule extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         List<String> appointments = new ArrayList<>();
+                        int counter = 0;
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
                             // Extract appointment details
                             String clientName = document.getString(FIELD_NAME);
                             String time = document.getString(FIELD_HOUR);
+                            String clientEmail = document.getString(FIELD_CLIENT_EMAIL);
+
+                            adapter.pList.add(new Appointment());
+                            adapter.setData(counter++, clientEmail, time, selectedDate);
+
                             String appointmentDetails = "Client Name: " + clientName + "\n" +
                                     "Time: " + time;
+
                             appointments.add(appointmentDetails);
                         }
 

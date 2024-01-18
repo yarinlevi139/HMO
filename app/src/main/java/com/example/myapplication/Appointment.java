@@ -13,6 +13,16 @@ public class Appointment {
     private String client_email;
 
 
+    public Appointment()
+    {
+        this.Date = "";
+        this.Hour = "";
+        this.Doctor = "";
+        this.Name = "";
+        this.doc_type = "";
+        this.doc_email = "";
+        this.client_email = "";
+    }
     // Constructors
     public Appointment(String date, String time, String doctor, String userName, String s, String type, String doc_email, String client_email ) {
         this.Date = date;
