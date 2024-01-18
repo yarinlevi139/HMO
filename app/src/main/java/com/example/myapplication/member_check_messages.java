@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +37,7 @@ public class member_check_messages extends AppCompatActivity {
     private ListView messagesListView;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> messagesList;
+    private ArrayList<String> documentIdsList;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_view_messages);
@@ -44,6 +50,7 @@ public class member_check_messages extends AppCompatActivity {
             }
         });
 
+        documentIdsList = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -51,12 +58,57 @@ public class member_check_messages extends AppCompatActivity {
         messagesList = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messagesList);
         messagesListView.setAdapter(adapter);
+        messagesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Get the selected message and its document ID
+                String selectedMessage = adapter.getItem(position);
+                String documentId = documentIdsList.get(position);
+
+                // Create and show the AlertDialog
+                new AlertDialog.Builder(member_check_messages.this)
+                        .setTitle("Delete message")
+                        .setMessage("Do you want to delete this message?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Delete the selected message from Firebase
+                                deleteMessage(documentId, selectedMessage);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
 
         // Fetch and display messages
         fetchAndDisplayMessages();
 
 
     }
+    private void deleteMessage(String documentId, String message) {
+        db.collection("messages")
+                .document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        // Remove the message and its document ID from the lists and notify the adapter
+                        int index = messagesList.indexOf(message);
+                        messagesList.remove(index);
+                        documentIdsList.remove(index);
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
     private void fetchAndDisplayMessages() {
         String member_email = mAuth.getCurrentUser().getEmail();
 
@@ -68,10 +120,12 @@ public class member_check_messages extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             messagesList.clear();
+                            documentIdsList.clear();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String sender = document.getString("sender");
                                 String messageText = document.getString("messageText");
                                 messagesList.add(sender + ": " + messageText);
+                                documentIdsList.add(document.getId());
                             }
                             adapter.notifyDataSetChanged();
                         } else {
