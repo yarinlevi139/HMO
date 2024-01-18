@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 public class my_appointments_client extends AppCompatActivity {
     @Override
@@ -119,23 +122,47 @@ public class my_appointments_client extends AppCompatActivity {
                                 cancelButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        // Delete the appointment document
-                                        db.collection("Appointments").document(documentId)
-                                                .delete()
-                                                .addOnSuccessListener(aVoid -> {
-                                                    // Document successfully deleted
-                                                    // Remove the canceled appointment from the list
-                                                    appointments.remove(position);
-
-                                                    // Notify the adapter that the data set has changed
-                                                    notifyDataSetChanged();
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    // Handle the error
-                                                });
+                                        // Show a confirmation dialog
+                                        showConfirmationDialog(my_appointments_client.this, documentId, position);
                                     }
                                 });
                                 return view;
+                            }
+
+                            private void showConfirmationDialog(Context context, String documentId, int position) {
+                                // Build an AlertDialog
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setMessage("Are you sure you want to cancel this appointment?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User clicked Yes button
+                                                // Delete the appointment document
+                                                db.collection("Appointments").document(documentId)
+                                                        .delete()
+                                                        .addOnSuccessListener(aVoid -> {
+                                                            // Document successfully deleted
+                                                            // Remove the canceled appointment from the list
+                                                            appointments.remove(position);
+
+                                                            // Notify the adapter that the data set has changed
+                                                            notifyDataSetChanged();
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            // Handle the error
+                                                        });
+                                            }
+                                        })
+                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User clicked No button
+                                                // Close the dialog
+                                                dialog.dismiss();
+                                            }
+                                        });
+
+                                // Create and show the AlertDialog
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
                             }
                         };
                         appointmentList.setAdapter(adapter);

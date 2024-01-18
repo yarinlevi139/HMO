@@ -55,7 +55,16 @@ public class member_messages extends AppCompatActivity {
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage();
+                // Get the message text from the EditText
+                String replyMessage = messageEditText.getText().toString();
+
+                // Check if the reply message is empty
+                if (replyMessage.trim().isEmpty()) {
+                    // Show a notification to the doctor
+                    Toast.makeText(member_messages.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
+                }else{
+                    sendMessage();
+                }
             }
         });
     }
