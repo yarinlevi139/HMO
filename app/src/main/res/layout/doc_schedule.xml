@@ -1,21 +1,30 @@
-<!-- Your existing layout (activity_main.xml) -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- res/layout/doc_schedule.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="ExtraText">
+    android:layout_height="match_parent">
 
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/listView"
+        app:layout_constraintBottom_toTopOf="@+id/dayOfWeekTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Add the list view below the calendar view -->
+    <TextView
+        android:id="@+id/dayOfWeekTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        android:text="Day of the Week"/>
+
+    <!-- Add the list view below the day of the week TextView -->
     <ListView
         android:id="@+id/listView"
         android:layout_width="0dp"
@@ -24,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+        app:layout_constraintTop_toBottomOf="@+id/dayOfWeekTextView" />
 
     <!-- Add other UI elements or widgets as needed -->
 
