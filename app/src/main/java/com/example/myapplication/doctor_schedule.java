@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,6 +75,7 @@ public class doctor_schedule extends AppCompatActivity {
     }
 
     // Method to fetch and display appointments for the selected date
+    // Method to fetch and display appointments for the selected date
     private void fetchAndDisplayAppointments(String selectedDate) {
         // Add your logic here to fetch appointments for the logged-in doctor
         // Use FirebaseAuth to get the logged-in doctor's email
@@ -98,9 +100,16 @@ public class doctor_schedule extends AppCompatActivity {
                             appointments.add(appointmentDetails);
                         }
 
-                        // Debugging: Log the fetched appointments
+                        // Sort appointments by hour
+                        Collections.sort(appointments, (appointment1, appointment2) -> {
+                            String time1 = getTimeFromAppointment(appointment1);
+                            String time2 = getTimeFromAppointment(appointment2);
+                            return time1.compareTo(time2);
+                        });
+
+                        // Debugging: Log the fetched and sorted appointments
                         for (String appointment : appointments) {
-                            Log.d("FetchAppointments", "Appointment: " + appointment);
+                            Log.d("FetchAppointments", "Sorted Appointment: " + appointment);
                         }
 
                         // Update the adapter's data with the fetched appointments and notify the change
@@ -117,6 +126,18 @@ public class doctor_schedule extends AppCompatActivity {
                     }
                 });
     }
+
+    // Method to extract time from appointment details
+    private String getTimeFromAppointment(String appointmentDetails) {
+        // Extract the time part from the appointment details (assuming "Time: HH:mm" format)
+        String[] parts = appointmentDetails.split("Time: ");
+        if (parts.length > 1) {
+            return parts[1];
+        } else {
+            return ""; // Handle the case where time is not present or format is different
+        }
+    }
+
 
     // Method to set the day of the week TextView
     private void setDayOfWeek(String selectedDate) {
