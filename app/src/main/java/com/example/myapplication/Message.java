@@ -69,4 +69,3 @@ public class Message {
         this.id = id;
     }
 }
-

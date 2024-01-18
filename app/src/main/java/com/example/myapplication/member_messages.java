@@ -57,13 +57,20 @@ public class member_messages extends AppCompatActivity {
             public void onClick(View view) {
                 // Get the message text from the EditText
                 String replyMessage = messageEditText.getText().toString();
+                String DocName = doctorSpinner.getSelectedItem().toString();
 
-                // Check if the reply message is empty
-                if (replyMessage.trim().isEmpty()) {
-                    // Show a notification to the doctor
-                    Toast.makeText(member_messages.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
+                // Check if the client chose a doctor
+                if (!DocName.trim().equals("Select a doctor")){
+                    // Check if the reply message is empty
+                    if (replyMessage.trim().isEmpty()) {
+                        // Show a notification to the client
+                        Toast.makeText(member_messages.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
+                    }else{
+                        sendMessage();
+                    }
                 }else{
-                    sendMessage();
+                    // Show a notification to the client
+                    Toast.makeText(member_messages.this, "You must choose a doctor", Toast.LENGTH_SHORT).show();
                 }
             }
         });
