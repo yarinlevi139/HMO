@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".main_activity"
+            android:name=".activities.main_activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,22 +21,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="login_page" />
-        <activity android:name=".signup_page" />
-        <activity android:name=".main_page_member" />
-        <activity android:name=".main_page_worker" />
-        <activity android:name=".make_appointment_activity" />
-        <activity android:name=".my_appointments_client" />
-        <activity android:name=".doctor_messages"/>
-        <activity android:name=".doctor_profile"/>
-        <activity android:name=".doctor_schedule"/>
-        <activity android:name=".create_client"/>
-        <activity android:name=".client_profile"/>
-        <activity android:name=".docs_available"/>
-        <activity android:name=".member_messages"/>
-        <activity android:name=".time_and_date"/>
-        <activity android:name=".doctor_reply"/>
-        <activity android:name=".member_check_messages"/>
+        <activity android:name=".activities.login_page" />
+        <activity android:name=".activities.signup_page" />
+        <activity android:name=".activities.main_page_member" />
+        <activity android:name=".activities.main_page_worker" />
+        <activity android:name=".activities.make_appointment_activity" />
+        <activity android:name=".activities.my_appointments_client" />
+        <activity android:name=".activities.doctor_messages"/>
+        <activity android:name=".activities.doctor_profile"/>
+        <activity android:name=".activities.doctor_schedule"/>
+        <activity android:name=".activities.create_client"/>
+        <activity android:name=".activities.client_profile"/>
+        <activity android:name=".activities.docs_available"/>
+        <activity android:name=".activities.member_messages"/>
+        <activity android:name=".activities.time_and_date"/>
+        <activity android:name=".activities.doctor_reply"/>
+        <activity android:name=".activities.member_check_messages"/>
     </application>
 
 </manifest>
