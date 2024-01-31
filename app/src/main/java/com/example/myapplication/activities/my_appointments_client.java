@@ -27,7 +27,7 @@ public class my_appointments_client extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.myappointments_client);
+        setContentView(R.layout.client_view_appointments);
 
         TextView appointmentText = findViewById(R.id.appointmentText);
         ListView appointmentList = findViewById(R.id.appointmentList);
@@ -110,7 +110,7 @@ public class my_appointments_client extends AppCompatActivity {
                             }
                         }
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.cancel_client_appointments, R.id.dateTextView, appointments) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.client_cancels_appointment, R.id.dateTextView, appointments) {
                             @Override
                             public View getView(int position, View convertView, ViewGroup parent) {
                                 View view = super.getView(position, convertView, parent);

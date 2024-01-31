@@ -1,22 +1,19 @@
 package com.example.myapplication.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.classes.Message;
 import com.example.myapplication.R;
@@ -36,71 +33,34 @@ public class doctor_messages extends AppCompatActivity {
     private FirebaseFirestore db;
 
     private ListView messagesListView;
-    private ArrayAdapter<String> adapter;
+    private CustomAdapter customAdapter;
     private ArrayList<Message> messagesList;
 
-    public class MessagesAdapter extends ArrayAdapter<Message> {
-        public MessagesAdapter(Context context, ArrayList<Message> messages) {
-            super(context, 0, messages);
-        }
+    Message currentMessage;
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // Get the data item for this position
-            Message message = getItem(position);
+    private static final int REQUEST_CODE_REPLY = 1;
 
-            // Check if an existing view is being reused, otherwise inflate the view
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_item, parent, false);
-            }
-
-            // Lookup view for data population
-            TextView messageTextView = convertView.findViewById(R.id.messageTextView);
-
-            // Populate the data into the template view using the data object
-            messageTextView.setText(message.getSender() + ": " + message.getMessageText());
-
-            // Set onClickListener for the "Reply" button
-            Button replyButton = convertView.findViewById(R.id.replyButton);
-            replyButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Add code to handle the "Reply" button click
-                    // For now, just redirect to another page
-                    Intent intent = new Intent(doctor_messages.this, doctor_reply.class);
-                    intent.putExtra("sender1", message.getSender());
-                    intent.putExtra("sender_email1", message.getSenderEmail());
-                    intent.putExtra("receivedMessage", message.getMessageText());
-                    intent.putExtra("receiver",message.getReceiver());
-                    startActivity(intent);
-                }
-            });
-            // Return the completed view to render on screen
-            return convertView;
-        }
-    }
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_messages);
+        setContentView(R.layout.doctor_messages);
         Button back = findViewById(R.id.back_button);
-        back.setOnClickListener(new View.OnClickListener(){
+
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(doctor_messages.this, main_page_worker.class);
+                Intent intent = new Intent(doctor_messages.this, main_page_doctor.class);
                 startActivity(intent);
             }
         });
 
-
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        messagesListView = findViewById(R.id.messagesListView); // Replace with your ListView ID
+        messagesListView = findViewById(R.id.messagesListView);
         messagesList = new ArrayList<>();
-        MessagesAdapter adapter = new MessagesAdapter(this, messagesList);
-        messagesListView.setAdapter(adapter);
-        messagesListView.setAdapter(adapter);
+        customAdapter = new CustomAdapter(messagesList);
+        messagesListView.setAdapter(customAdapter);
 
         // Fetch and display messages
         fetchAndDisplayMessages();
@@ -121,16 +81,13 @@ public class doctor_messages extends AppCompatActivity {
                                 message.setId(document.getId());
                                 messagesList.add(message);
                             }
-                            // Create a custom adapter
-                            CustomAdapter customAdapter = new CustomAdapter(messagesList);
-                            messagesListView.setAdapter(customAdapter);
+                            customAdapter.notifyDataSetChanged();
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
     }
-
 
     private class CustomAdapter extends ArrayAdapter<Message> {
 
@@ -146,47 +103,55 @@ public class doctor_messages extends AppCompatActivity {
                 listItemView = LayoutInflater.from(getContext()).inflate(R.layout.message_item, parent, false);
             }
 
-            // Get the current Message object
-            Message currentMessage = getItem(position);
+            currentMessage = getItem(position);
 
-            // Set the text for the TextView
             TextView messageTextView = listItemView.findViewById(R.id.messageTextView);
             messageTextView.setText(currentMessage.getSender() + ": " + currentMessage.getMessageText());
 
-            // Set onClickListener for the "Reply" button
             Button replyButton = listItemView.findViewById(R.id.replyButton);
             replyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Add code to handle the "Reply" button click
                     Intent intent = new Intent(doctor_messages.this, doctor_reply.class);
                     intent.putExtra("sender1", currentMessage.getSender());
                     intent.putExtra("sender_email1", currentMessage.getSenderEmail());
                     intent.putExtra("receivedMessage", currentMessage.getMessageText());
-                    intent.putExtra("receiver",currentMessage.getReceiver());
+                    intent.putExtra("receiver", currentMessage.getReceiver());
+                    intent.putExtra("msgID", currentMessage.getId());
 
-                    startActivity(intent);
-
-                    // Delete the message from Firestore
-                    db.collection("messages").document(currentMessage.getId())
-                            .delete()
-                            .addOnSuccessListener(aVoid -> {
-                                // Document successfully deleted
-                                // Remove the deleted message from the list
-                                remove(currentMessage);
-
-                                // Notify the adapter that the data set has changed
-                                notifyDataSetChanged();
-                            })
-                            .addOnFailureListener(e -> {
-                                // Handle the error
-                            });
+                    startActivityForResult(intent, REQUEST_CODE_REPLY);
                 }
             });
-
 
             return listItemView;
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_REPLY && resultCode == RESULT_OK) {
+            String deletedMessageId = data.getStringExtra("deletedMessageId");
+            deleteFromAdapter(deletedMessageId);
+        }
+    }
+
+    private void deleteFromAdapter(String messageId) {
+        for (Message message : messagesList) {
+            if (message.getId().equals(messageId)) {
+                messagesList.remove(message);
+                customAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
+
+        db.collection("messages").document(messageId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    // Document successfully deleted
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failure
+                });
+    }
 }

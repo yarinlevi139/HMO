@@ -20,11 +20,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class main_page_member extends AppCompatActivity {
+public class main_page_client extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_member);
+        setContentView(R.layout.main_page_client);
         // Get the email from the Intent
         String email = getIntent().getStringExtra("Email");
 
@@ -62,7 +62,7 @@ public class main_page_member extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start your Make Appointment Activity here
-                Intent intent = new Intent(main_page_member.this, make_appointment_activity.class);
+                Intent intent = new Intent(main_page_client.this, make_appointment_activity.class);
                 startActivity(intent);
             }
         });
@@ -71,7 +71,7 @@ public class main_page_member extends AppCompatActivity {
         check_messages.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(main_page_member.this, member_check_messages.class);
+                Intent intent = new Intent(main_page_client.this, client_view_messages.class);
                 startActivity(intent);
             }
         });
@@ -80,7 +80,7 @@ public class main_page_member extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // See your Appointments Activity here
-                Intent intent = new Intent(main_page_member.this, my_appointments_client.class);
+                Intent intent = new Intent(main_page_client.this, my_appointments_client.class);
                 startActivity(intent);
             }
         });
@@ -89,7 +89,7 @@ public class main_page_member extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // See your Appointments Activity here
-                Intent intent = new Intent(main_page_member.this, member_messages.class);
+                Intent intent = new Intent(main_page_client.this, client_send_messages.class);
                 startActivity(intent);
             }
         });
@@ -107,7 +107,7 @@ public class main_page_member extends AppCompatActivity {
         my_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(main_page_member.this, client_profile.class);
+                Intent intent = new Intent(main_page_client.this, client_profile.class);
                 startActivity(intent);
             }
         });

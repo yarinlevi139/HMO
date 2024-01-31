@@ -23,7 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class docs_available extends AppCompatActivity {
+public class doctors_available extends AppCompatActivity {
 
     private ListView doctorsListView;
     private Button backButton;
@@ -31,7 +31,7 @@ public class docs_available extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.docsavailable);
+        setContentView(R.layout.doctors_available);
 
         doctorsListView = findViewById(R.id.doctorsListView);
         backButton = findViewById(R.id.backButton);
@@ -63,7 +63,7 @@ public class docs_available extends AppCompatActivity {
                                 doctorEmail.add(docEmail);
                             }
 
-                            doctorlist_adapter adapter = new doctorlist_adapter(docs_available.this, doctorNames);
+                            doctorlist_adapter adapter = new doctorlist_adapter(doctors_available.this, doctorNames);
                             doctorsListView.setAdapter(adapter);
 
                             doctorsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,7 +74,7 @@ public class docs_available extends AppCompatActivity {
                                     String selectedDocLastName = doctorLastName.get(position);
                                     String selectedDocEmail = doctorEmail.get(position);
 
-                                    Intent n = new Intent(docs_available.this, time_and_date.class);
+                                    Intent n = new Intent(doctors_available.this, choose_time_date.class);
                                     n.putExtra("Doc", selectedDoctor);
                                     n.putExtra("type", doctorType);
                                     n.putExtra("docLastName", selectedDocLastName);

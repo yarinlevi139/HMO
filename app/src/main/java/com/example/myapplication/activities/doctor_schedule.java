@@ -57,7 +57,7 @@ public class doctor_schedule extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_schedule);
+        setContentView(R.layout.doctor_schedule);
 
         // Initialize FirebaseAuth
         mAuth = FirebaseAuth.getInstance();

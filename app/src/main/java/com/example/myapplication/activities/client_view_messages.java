@@ -27,7 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class member_check_messages extends AppCompatActivity {
+public class client_view_messages extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "member_message";
     private FirebaseFirestore db;
@@ -38,7 +38,7 @@ public class member_check_messages extends AppCompatActivity {
     private ArrayList<String> documentIdsList;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.member_view_messages);
+        setContentView(R.layout.client_view_messages);
 
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class member_check_messages extends AppCompatActivity {
                 String documentId = documentIdsList.get(position);
 
                 // Create and show the AlertDialog
-                new AlertDialog.Builder(member_check_messages.this)
+                new AlertDialog.Builder(client_view_messages.this)
                         .setTitle("Delete message")
                         .setMessage("Do you want to delete this message?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

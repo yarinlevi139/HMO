@@ -1,6 +1,7 @@
 package com.example.myapplication.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.classes.Message;
@@ -29,7 +31,7 @@ public class doctor_reply extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doctor_answer);
+        setContentView(R.layout.doctor_reply);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -38,7 +40,6 @@ public class doctor_reply extends AppCompatActivity {
         replyEditText = findViewById(R.id.message);
         sendButton = findViewById(R.id.button2);
 
-        // Retrieve the received message from the intent
         String receivedMessage = getIntent().getStringExtra("receivedMessage");
         receivedMessageTextView.setText(receivedMessage);
 
@@ -46,47 +47,41 @@ public class doctor_reply extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                // Get the message text from the EditText
                 String replyMessage = replyEditText.getText().toString();
 
-                // Check if the reply message is empty
                 if (replyMessage.trim().isEmpty()) {
-                    // Show a notification to the doctor
                     Toast.makeText(doctor_reply.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Get the sender and receiver details
                     String senderName = getIntent().getStringExtra("receiver");
                     String senderEmail = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
                     String receivedMessage = getIntent().getStringExtra("receivedMessage");
-                    receivedMessageTextView.setText(senderName + ": " + receivedMessage);
+                    receivedMessageTextView.setText("Message Sent!");
                     String receiverName = getIntent().getStringExtra("sender1");
                     String receiverEmail = getIntent().getStringExtra("sender_email1");
+                    String oldMessageID = getIntent().getStringExtra("msgID");
                     String messageID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-                    // Create a new Message object
                     Message reply = new Message(senderName, receiverName, senderEmail, receiverEmail, replyMessage, messageID);
 
-                    // Add the reply to the Firestore database
-                    addReplyToFirestore(reply);
+                    addReplyToFirestore(reply, oldMessageID);
                 }
             }
         });
     }
 
-    private void addReplyToFirestore(Message reply) {
-        // Add the reply to the Firestore database
+    private void addReplyToFirestore(Message reply, String oldMessageID) {
         db.collection("messages")
                 .add(reply)
                 .addOnSuccessListener(documentReference -> {
-                    // Handle success
-                    // Optionally, you can show a success message or navigate back to the previous page
-                    finish(); // Close the current activity after sending the reply
+                    String deletedMessageId = oldMessageID;
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("deletedMessageId", deletedMessageId);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
                 })
                 .addOnFailureListener(e -> {
                     // Handle failure
                     // Optionally, you can show an error message
                 });
     }
-
 }
-

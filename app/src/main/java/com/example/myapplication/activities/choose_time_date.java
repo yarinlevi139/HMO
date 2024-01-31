@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class time_and_date extends AppCompatActivity {
+public class choose_time_date extends AppCompatActivity {
     private Spinner spinnerDate;
     private Spinner spinnerTime;
     private TextView timeTitle;
@@ -46,7 +46,7 @@ public class time_and_date extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.time_and_date);
+        setContentView(R.layout.choose_time_date);
 
         // Initialize Firebase Firestore
         firestore = FirebaseFirestore.getInstance();
@@ -139,9 +139,9 @@ public class time_and_date extends AppCompatActivity {
                 if (appointment.getDate().equals("") || appointment.getHour().equals("Choose time")) {
                     // If not, show a Toast message
                     if (appointment.getDate().equals("")) {
-                        Toast.makeText(time_and_date.this, "Please choose a date", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(choose_time_date.this, "Please choose a date", Toast.LENGTH_SHORT).show();
                     } else if (appointment.getHour().equals("Choose time")) {
-                        Toast.makeText(time_and_date.this, "Please choose a time", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(choose_time_date.this, "Please choose a time", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     // If a date and time have been selected, set the appointment
@@ -150,7 +150,7 @@ public class time_and_date extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(time_and_date.this, "Appointment scheduled successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(choose_time_date.this, "Appointment scheduled successfully", Toast.LENGTH_SHORT).show();
                                         finish();
                                     } else {
                                         // Handle errors

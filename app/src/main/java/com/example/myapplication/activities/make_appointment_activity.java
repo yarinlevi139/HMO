@@ -11,7 +11,7 @@ import com.example.myapplication.R;
 public class make_appointment_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.makeappointmentactivity);
+        setContentView(R.layout.make_appointment_activity);
 
         // Add appointment type buttons
         Button BloodTest = findViewById(R.id.bloodTestButton);
@@ -60,7 +60,7 @@ public class make_appointment_activity extends AppCompatActivity {
 
     private void sendData(String dataValue) {
         // Create Intent and put extra data
-        Intent intent = new Intent(this, docs_available.class);
+        Intent intent = new Intent(this, doctors_available.class);
         intent.putExtra("message", dataValue);
 
         // Start the second activity

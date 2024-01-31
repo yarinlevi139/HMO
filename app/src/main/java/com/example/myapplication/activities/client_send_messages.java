@@ -26,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class member_messages extends AppCompatActivity {
+public class client_send_messages extends AppCompatActivity {
     private Spinner doctorSpinner;
     private EditText messageEditText;
     private Button sendMessageButton;
@@ -36,7 +36,7 @@ public class member_messages extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.member_msg);
+        setContentView(R.layout.client_send_messages);
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -63,13 +63,13 @@ public class member_messages extends AppCompatActivity {
                     // Check if the reply message is empty
                     if (replyMessage.trim().isEmpty()) {
                         // Show a notification to the client
-                        Toast.makeText(member_messages.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(client_send_messages.this, "Message cannot be empty", Toast.LENGTH_SHORT).show();
                     }else{
                         sendMessage();
                     }
                 }else{
                     // Show a notification to the client
-                    Toast.makeText(member_messages.this, "You must choose a doctor", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(client_send_messages.this, "You must choose a doctor", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -100,7 +100,7 @@ public class member_messages extends AppCompatActivity {
                             doctorSpinner.setAdapter(adapter);
                         } else {
                             // Handle failure
-                            Toast.makeText(member_messages.this, "Error getting doctors", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(client_send_messages.this, "Error getting doctors", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -152,22 +152,22 @@ public class member_messages extends AppCompatActivity {
                                                                     @Override
                                                                     public void onComplete(@NonNull Task<DocumentReference> task) {
                                                                         if (task.isSuccessful()) {
-                                                                            Toast.makeText(member_messages.this, "Message sent successfully", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(client_send_messages.this, "Message sent successfully", Toast.LENGTH_SHORT).show();
                                                                             finish();
                                                                         } else {
-                                                                            Toast.makeText(member_messages.this, "Error sending message", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(client_send_messages.this, "Error sending message", Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }
                                                                 });
                                                     }
                                                 } else {
-                                                    Toast.makeText(member_messages.this, "Error fetching doctor information", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(client_send_messages.this, "Error fetching doctor information", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
                             }
                         } else {
-                            Toast.makeText(member_messages.this, "Error fetching member information", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(client_send_messages.this, "Error fetching member information", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -28,7 +28,7 @@ public class doctor_profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doc_profile);
+        setContentView(R.layout.doctor_profile);
 
         db = FirebaseFirestore.getInstance();
         nametv = findViewById(R.id.profile_name);
@@ -42,7 +42,7 @@ public class doctor_profile extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(doctor_profile.this, main_page_worker.class);
+                Intent intent = new Intent(doctor_profile.this, main_page_doctor.class);
                 startActivity(intent);
             }
         });

@@ -69,14 +69,14 @@ public class login_page extends AppCompatActivity {
 
                             // Start another activity or perform further actions
                             if (email.contains("@myhealth")) {
-                                Intent intent = new Intent(login_page.this, main_page_worker.class);
+                                Intent intent = new Intent(login_page.this, main_page_doctor.class);
                                 intent.putExtra("Email", email); // Pass the email
                                 startActivity(intent);
                                 finish(); // Finish LoginActivity so the user cannot go back to it using the back button
                             }
                             else
                             {
-                                Intent intent = new Intent(login_page.this, main_page_member.class);
+                                Intent intent = new Intent(login_page.this, main_page_client.class);
                                 intent.putExtra("Email", email); // Pass the email
                                 startActivity(intent);
                                 finish(); // Finish LoginActivity so the user cannot go back to it using the back button

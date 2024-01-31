@@ -9,15 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
-public class main_page_worker extends AppCompatActivity {
+public class main_page_doctor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_worker);
+        setContentView(R.layout.main_page_doctor);
         Button profile = findViewById(R.id.button_profile);
         profile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(main_page_worker.this, doctor_profile.class);
+                Intent intent = new Intent(main_page_doctor.this, doctor_profile.class);
                 startActivity(intent);
             }
         });
@@ -25,7 +25,7 @@ public class main_page_worker extends AppCompatActivity {
         schedule.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(main_page_worker.this, doctor_schedule.class);
+                Intent intent = new Intent(main_page_doctor.this, doctor_schedule.class);
                 startActivity(intent);
             }
         });
@@ -33,7 +33,7 @@ public class main_page_worker extends AppCompatActivity {
         messages.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(main_page_worker.this, doctor_messages.class);
+                Intent intent = new Intent(main_page_doctor.this, doctor_messages.class);
                 startActivity(intent);
             }
         });
@@ -43,7 +43,7 @@ public class main_page_worker extends AppCompatActivity {
         signout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(main_page_worker.this, main_activity.class);
+                Intent intent = new Intent(main_page_doctor.this, main_activity.class);
                 startActivity(intent);
             }
         });
