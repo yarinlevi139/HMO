@@ -1,19 +1,19 @@
+/**
+ * This class represents the activity for displaying and managing a doctor's schedule.
+ * It utilizes Firebase authentication and Firestore to fetch and display appointments for a logged-in doctor.
+ */
 package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +22,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The DoctorSchedule class extends AppCompatActivity and represents the doctor's schedule management activity.
+ * It integrates Firebase authentication and Firestore to fetch and display appointments for the logged-in doctor.
+ */
 public class doctor_schedule extends AppCompatActivity {
+
+    // Firebase Firestore collection and field constants
     private static final String COLLECTION_APPOINTMENTS = "Appointments";
     private static final String FIELD_DOC_EMAIL = "docEmail";
     private static final String FIELD_CLIENT_EMAIL = "clientEmail";
@@ -30,10 +36,20 @@ public class doctor_schedule extends AppCompatActivity {
     private static final String FIELD_NAME = "name";
     private static final String FIELD_HOUR = "hour";
 
+    // Appointment adapter for displaying appointment information in a ListView
     private appointment_adapter adapter;
+
+    // Firebase authentication instance
     private FirebaseAuth mAuth;
+
+    // TextView for displaying the selected day of the week
     private TextView dayOfWeekTextView;
 
+    /**
+     * Called when the activity is first created. Responsible for initializing the UI components,
+     * Firebase authentication, setting up CalendarView, and creating the initial data list.
+     * @param savedInstanceState A Bundle containing the saved state of the activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,12 +90,13 @@ public class doctor_schedule extends AppCompatActivity {
             // Set the day of the week
             setDayOfWeek(selectedDate);
         });
-
-
-
     }
 
-    // Method to fetch and display appointments for the selected date
+    /**
+     * Fetches and displays appointments for the selected date using Firebase Firestore.
+     * Retrieves the logged-in doctor's email, accesses Firestore, and updates the UI with the fetched appointments.
+     * @param selectedDate The selected date for fetching appointments.
+     */
     private void fetchAndDisplayAppointments(String selectedDate) {
         // Add your logic here to fetch appointments for the logged-in doctor
         // Use FirebaseAuth to get the logged-in doctor's email
@@ -94,20 +111,26 @@ public class doctor_schedule extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        // List to store fetched appointments
                         List<String> appointments = new ArrayList<>();
                         int counter = 0;
+
+                        // Loop through fetched documents
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
                             // Extract appointment details
                             String clientName = document.getString(FIELD_NAME);
                             String time = document.getString(FIELD_HOUR);
                             String clientEmail = document.getString(FIELD_CLIENT_EMAIL);
 
+                            // Add appointment to the adapter's data
                             adapter.pList.add(new Appointment());
                             adapter.setData(counter++, clientEmail, time, selectedDate);
 
+                            // Create appointment details string
                             String appointmentDetails = "Client Name: " + clientName + "\n" +
                                     "Time: " + time;
 
+                            // Add appointment details to the list
                             appointments.add(appointmentDetails);
                         }
 
@@ -138,7 +161,12 @@ public class doctor_schedule extends AppCompatActivity {
                 });
     }
 
-    // Method to extract time from appointment details
+    /**
+     * Extracts time from appointment details.
+     * Assumes that the appointment details follow the format "Time: HH:mm".
+     * @param appointmentDetails The appointment details string.
+     * @return The extracted time string.
+     */
     private String getTimeFromAppointment(String appointmentDetails) {
         // Extract the time part from the appointment details (assuming "Time: HH:mm" format)
         String[] parts = appointmentDetails.split("Time: ");
@@ -149,8 +177,11 @@ public class doctor_schedule extends AppCompatActivity {
         }
     }
 
-
-    // Method to set the day of the week TextView
+    /**
+     * Sets the day of the week TextView based on the selected date.
+     * Parses the selected date and updates the TextView with the corresponding day of the week.
+     * @param selectedDate The selected date for determining the day of the week.
+     */
     private void setDayOfWeek(String selectedDate) {
         try {
             // Parse the selected date
@@ -168,7 +199,11 @@ public class doctor_schedule extends AppCompatActivity {
         }
     }
 
-    // Method to get the day of the week message
+    /**
+     * Returns the day of the week message based on the provided day of the week integer.
+     * @param dayOfWeek The day of the week integer (Calendar constants).
+     * @return The corresponding day of the week message.
+     */
     private String getDayOfWeekMessage(int dayOfWeek) {
         switch (dayOfWeek) {
             case Calendar.SUNDAY:

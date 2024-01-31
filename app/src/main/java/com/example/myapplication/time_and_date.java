@@ -213,6 +213,8 @@ public class time_and_date extends AppCompatActivity {
     }
 
     private void checkDocumentExistence(String selectedDate) {
+        
+
         firestore.collection("Appointments")
                 .whereEqualTo("date", selectedDate)
                 .get()
@@ -232,7 +234,7 @@ public class time_and_date extends AppCompatActivity {
                             } else {
                                 // No document exists for the selected date
                                 // Populate with all times from 9:00 - 17:00
-                                populateAllTimes();
+                                populateAllTimes(selectedDate);
                             }
                         } else {
                             // Handle errors
@@ -242,7 +244,7 @@ public class time_and_date extends AppCompatActivity {
     }
 
     // Function to populate the time spinner with all times from 9:00 - 17:00 in 15-minute intervals
-    private void populateAllTimes() {
+    private void populateAllTimes(String selectedDate) {
         // Create a list of times
         List<String> times = new ArrayList<>();
 
@@ -252,7 +254,9 @@ public class time_and_date extends AppCompatActivity {
         for (int hour = 9; hour <= 16; hour++) {
             for (int minute = 0; minute < 60; minute += 15) {
                 String time = String.format("%02d:%02d", hour, minute);
-                times.add(time);
+                if (!isTimeBeforeCurrentTime(selectedDate, time)) {
+                    times.add(time);
+                }
             }
         }
 
@@ -262,7 +266,6 @@ public class time_and_date extends AppCompatActivity {
         spinnerTime.setAdapter(timeAdapter);
     }
 
-    // Function to populate the time spinner with available times excluding already reserved ones
     // Function to populate the time spinner with available times excluding already reserved ones
     private void populateAvailableTimes(String selectedDate, List<String> reservedHours) {
 

@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,14 +64,45 @@ public class appointment_adapter extends ArrayAdapter<String> {
                 String time = pList.get(position).getHour();
                 String date = pList.get(position).getDate();
 
-                // Delete the appointment from Firestore
-                deleteAppointmentFromFirestore(email, time, date);
 
-                // Remove the item from the ListView
-                remove(getItem(position));
-                notifyDataSetChanged();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                // Set the title and message for the dialog
+                builder.setTitle("Cancel the appointment");
+                builder.setMessage("Press OK to cancel the current appointment");
+
+                // Set the positive button and its listener
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteAppointmentFromFirestore(email, time, date);
+                        // Remove the item from the ListView
+                        remove(getItem(position));
+                        notifyDataSetChanged();
+                    }
+                });
+
+                // Set the negative button and its listener (if needed)
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Handle cancel if needed
+                        dialog.dismiss();
+                    }
+                });
+
+                // Create and show the dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+
             }
         });
+
+
+
 
         return view;
     }
