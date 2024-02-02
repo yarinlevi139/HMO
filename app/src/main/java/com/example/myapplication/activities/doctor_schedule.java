@@ -167,7 +167,6 @@ public class doctor_schedule extends AppCompatActivity {
 
     /**
      * Extracts time from appointment details.
-     * Assumes that the appointment details follow the format "Time: HH:mm".
      * @param appointmentDetails The appointment details string.
      * @return The extracted time string.
      */
@@ -182,8 +181,7 @@ public class doctor_schedule extends AppCompatActivity {
     }
 
     /**
-     * Sets the day of the week TextView based on the selected date.
-     * Parses the selected date and updates the TextView with the corresponding day of the week.
+     * updates the TextView "day of the week"
      * @param selectedDate The selected date for determining the day of the week.
      */
     private void setDayOfWeek(String selectedDate) {

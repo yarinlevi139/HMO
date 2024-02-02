@@ -52,7 +52,7 @@ public class client_view_messages extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        messagesListView = findViewById(R.id.messagesListView); // Replace with your ListView ID
+        messagesListView = findViewById(R.id.messagesListView);
         messagesList = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messagesList);
         messagesListView.setAdapter(adapter);
@@ -84,6 +84,12 @@ public class client_view_messages extends AppCompatActivity {
 
 
     }
+
+    /**
+     * deletes the document message from the DB.
+     * @param documentId
+     * @param message
+     */
     private void deleteMessage(String documentId, String message) {
         db.collection("messages")
                 .document(documentId)
@@ -107,6 +113,9 @@ public class client_view_messages extends AppCompatActivity {
                 });
     }
 
+    /**
+     * this function visualize the message to the customer
+     */
     private void fetchAndDisplayMessages() {
         String member_email = mAuth.getCurrentUser().getEmail();
 

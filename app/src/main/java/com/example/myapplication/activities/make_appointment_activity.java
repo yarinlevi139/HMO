@@ -58,6 +58,11 @@ public class make_appointment_activity extends AppCompatActivity {
         });
     }
 
+    /**
+     * sends the data to the next activity.
+     * in the next activity you will take all the relevant doctors by their type.
+     * @param dataValue
+     */
     private void sendData(String dataValue) {
         // Create Intent and put extra data
         Intent intent = new Intent(this, doctors_available.class);

@@ -59,7 +59,7 @@ public class create_client extends AppCompatActivity {
                     return;
                 }
 
-                // Check if the ID already exists
+                // Check if the ID already exists since ID is Primary Key
                 checkIdExistence(idNumber, exists -> {
                     if (exists) {
                         Toast.makeText(create_client.this, "Id already exists", Toast.LENGTH_LONG).show();
@@ -88,6 +88,11 @@ public class create_client extends AppCompatActivity {
 
     }
 
+    /**
+     * check if the id already exist since the id is PK
+     * @param idNumber
+     * @param listener
+     */
     private void checkIdExistence(String idNumber, OnIdCheckListener listener) {
         DocumentReference docRef = db.collection("Clients").document(idNumber);
 
@@ -105,7 +110,11 @@ public class create_client extends AppCompatActivity {
     }
 
 
-
+    /**
+     * function that checks if the age is valid.
+     * @param age
+     * @return
+     */
     private boolean isValidAge(String age) {
         try {
             int ageNumber = Integer.parseInt(age);
@@ -115,6 +124,11 @@ public class create_client extends AppCompatActivity {
         }
     }
 
+    /**
+     * function that checks if the ID is written in correct way.
+     * @param id
+     * @return
+     */
     private boolean isValidId(String id) {
         // Check if the ID is exactly 9 digits long and contains only digits
         return id.length() == 9 && id.matches("\\d+");

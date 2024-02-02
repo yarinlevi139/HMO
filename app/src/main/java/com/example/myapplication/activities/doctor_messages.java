@@ -66,6 +66,9 @@ public class doctor_messages extends AppCompatActivity {
         fetchAndDisplayMessages();
     }
 
+    /**
+     * this function displays all the messages the doctor received.
+     */
     private void fetchAndDisplayMessages() {
         String doctorEmail = mAuth.getCurrentUser().getEmail();
         db.collection("messages")
@@ -95,6 +98,19 @@ public class doctor_messages extends AppCompatActivity {
             super(doctor_messages.this, R.layout.message_item, messagesList);
         }
 
+        /**
+         *
+         * @param position The position of the item within the adapter's data set of the item whose view
+         *        we want.
+         * @param convertView The old view to reuse, if possible. Note: You should check that this view
+         *        is non-null and of an appropriate type before using. If it is not possible to convert
+         *        this view to display the correct data, this method can create a new view.
+         *        Heterogeneous lists can specify their number of view types, so that this View is
+         *        always of the right type (see {@link #getViewTypeCount()} and
+         *        {@link #getItemViewType(int)}).
+         * @param parent The parent that this view will eventually be attached to
+         * @return
+         */
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -127,6 +143,17 @@ public class doctor_messages extends AppCompatActivity {
         }
     }
 
+    /**
+     * delete the message from the adapter when the doctor presses the send button on the next activity.
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,6 +163,10 @@ public class doctor_messages extends AppCompatActivity {
         }
     }
 
+    /**
+     * as the above function.
+     * @param messageId
+     */
     private void deleteFromAdapter(String messageId) {
         for (Message message : messagesList) {
             if (message.getId().equals(messageId)) {

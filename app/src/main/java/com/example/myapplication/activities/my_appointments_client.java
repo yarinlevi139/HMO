@@ -42,6 +42,7 @@ public class my_appointments_client extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+        // getting the email of the current logged in user.
         String loggedInClientEmail = mAuth.getCurrentUser().getEmail();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -138,6 +139,15 @@ public class my_appointments_client extends AppCompatActivity {
                                 return view;
                             }
 
+                            /**
+                             * this function shows a dialog to the client
+                             * if he wants to cancel a meeting
+                             * and if he cancels then the document is being deleted from the DB
+                             * and the view is being updated.
+                             * @param context
+                             * @param documentId
+                             * @param position
+                             */
                             private void showConfirmationDialog(Context context, String documentId, int position) {
                                 // Build an AlertDialog
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);

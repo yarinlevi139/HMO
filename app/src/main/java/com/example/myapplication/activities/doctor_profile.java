@@ -68,6 +68,10 @@ public class doctor_profile extends AppCompatActivity {
 
     }
 
+    /**
+     * get the doctor data from the DB
+     * @param userEmail
+     */
     private void retrieveUserData(String userEmail) {
         db.collection("doctors")
                 .whereEqualTo("email", userEmail)
@@ -92,6 +96,14 @@ public class doctor_profile extends AppCompatActivity {
                 });
     }
 
+    /**
+     * display the doctor data.
+     * @param name
+     * @param lastName
+     * @param type
+     * @param email
+     * @param clinic
+     */
     private void displayUserData(String name, String lastName, String type, String email, String clinic) {
         // Update TextViews with the retrieved data
         nametv.setText("Name: " + name);

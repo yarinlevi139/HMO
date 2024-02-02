@@ -106,6 +106,12 @@ public class appointment_adapter extends ArrayAdapter<String> {
         return view;
     }
 
+    /**
+     * removes the appointment document from the DB
+     * @param email
+     * @param time
+     * @param date
+     */
     private void deleteAppointmentFromFirestore(String email, String time, String date) {
         firestore.collection("Appointments")
                 .whereEqualTo("clientEmail", email)

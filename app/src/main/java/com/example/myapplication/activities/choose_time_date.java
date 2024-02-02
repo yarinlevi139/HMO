@@ -171,6 +171,10 @@ public class choose_time_date extends AppCompatActivity {
 
     }
 
+    /**
+     * getting the name of the current user by the email and saving it in the appointment object.
+     * @param appointment
+     */
     private void getUsernameFromDatabase(Appointment appointment) {
         // Assuming you have FirebaseAuth and FirebaseFirestore instances
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -214,9 +218,12 @@ public class choose_time_date extends AppCompatActivity {
         }
     }
 
+    /**
+     * the functoin looks for the requested date and call other functions
+     * to get all the available hours to set an appointment.
+     * @param selectedDate
+     */
     private void checkDocumentExistence(String selectedDate) {
-        
-
         firestore.collection("Appointments")
                 .whereEqualTo("date", selectedDate)
                 .get()
@@ -245,7 +252,9 @@ public class choose_time_date extends AppCompatActivity {
                 });
     }
 
-    // Function to populate the time spinner with all times from 9:00 - 17:00 in 15-minute intervals
+    /**
+     *  Function to populate the time spinner with all times from 9:00 - 17:00 in 15-minute intervals
+     */
     private void populateAllTimes(String selectedDate) {
         // Create a list of times
         List<String> times = new ArrayList<>();
@@ -267,8 +276,10 @@ public class choose_time_date extends AppCompatActivity {
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTime.setAdapter(timeAdapter);
     }
-
-    // Function to populate the time spinner with available times excluding already reserved ones
+    /**
+    * Function to populate the time spinner with available times excluding already reserved ones
+     * from the current time.
+     */
     private void populateAvailableTimes(String selectedDate, List<String> reservedHours) {
 
         // Create a list of times from 9:00 to 17:00 with 15-minute intervals excluding the reserved hours
@@ -290,8 +301,9 @@ public class choose_time_date extends AppCompatActivity {
         spinnerTime.setAdapter(timeAdapter);
     }
 
-
-    // Function to get reserved hours from a query snapshot
+    /**
+    * Function to get reserved hours from a query snapshot
+    */
     private List<String> getReservedHours(QuerySnapshot querySnapshot) {
         List<String> reservedHours = new ArrayList<>();
 
@@ -302,8 +314,9 @@ public class choose_time_date extends AppCompatActivity {
 
         return reservedHours;
     }
-
-    // Function to check if the given time is before the current time
+    /**
+    * Function to check if the given time is before the current time
+    */
     private boolean isTimeBeforeCurrentTime(String selectedDate, String selectedTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String dateTimeString = selectedDate + " " + selectedTime;

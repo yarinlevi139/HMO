@@ -69,6 +69,11 @@ public class doctor_reply extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param reply
+     * @param oldMessageID
+     */
     private void addReplyToFirestore(Message reply, String oldMessageID) {
         db.collection("messages")
                 .add(reply)

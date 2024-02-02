@@ -58,6 +58,10 @@ public class client_profile extends AppCompatActivity {
 
     }
 
+    /**
+     * get the user data from the DB
+     * @param userEmail
+     */
     private void retrieveUserData(String userEmail) {
         db.collection("Clients")
                 .whereEqualTo("email_address", userEmail)
@@ -82,6 +86,14 @@ public class client_profile extends AppCompatActivity {
                 });
     }
 
+    /**
+     * shows the user data
+     * @param firstName
+     * @param lastName
+     * @param Age
+     * @param ID
+     * @param email
+     */
     private void displayUserData(String firstName, String lastName, String Age, String ID, String email) {
         // Update TextViews with the retrieved data
         greet.setText("Hello " + firstName);
