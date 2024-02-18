@@ -27,7 +27,7 @@ public class signup_page extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button sign_up_btn = findViewById(R.id.signup);
+        Button sign_up_btn = findViewById(R.id.signup_button);
 
 //        EditText first_name = findViewById(R.id.first_name);
 

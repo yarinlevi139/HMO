@@ -3,100 +3,103 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_blue">
 
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Hello (client name)!\nHow can we help you today"
+        android:layout_marginTop="80dp"
+        android:fontFamily="cursive"
+        android:text="Hello (client name)!\nHow can we help you today?"
         android:textAlignment="center"
-        android:textColor="#3F51B5"
+        android:textColor="@color/dark_blue"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/makeAppointmentButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:backgroundTint="#3F51B5"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_background"
         android:text="Make an Appointment"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcomeText" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/myAppointmentButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#3F51B5"
-        android:text="My appointments"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/button_background"
+        android:text="My Appointments"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/makeAppointmentButton" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/messageDoctorButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#3F51B5"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/button_background"
         android:text="Send a Message to Doctor"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549" />
+        app:layout_constraintTop_toBottomOf="@id/myAppointmentButton" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/button_background"
         android:text="Back"
-        android:textColor="#FFFFFF"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/messageDoctorButton" />
+        app:layout_constraintTop_toBottomOf="@id/check_messages" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/profile_member_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="my profile"
+        android:background="@drawable/button_background"
+        android:text="My Profile"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.979"
+        app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
+        app:layout_constraintVertical_bias="0.023" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/check_messages"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:text="Messages from doctors"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/button_background"
+        android:text="Messages from Doctors"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628" />
+        app:layout_constraintTop_toBottomOf="@id/messageDoctorButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

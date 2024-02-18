@@ -4,31 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_blue"
     tools:context=".activities.main_activity">
 
+    <ImageView
+        android:id="@+id/health_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/leaf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.34" />
 
-    <Button
+    <TextView
+        android:id="@+id/clinic_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:text="My Health"
+        android:textColor="@color/dark_blue"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/login_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.274" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_button"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
         android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/signup_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.513" />
+        app:layout_constraintTop_toBottomOf="@id/health_image"
+        app:layout_constraintVertical_bias="0.3" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup_button"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
         android:text="Sign up"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintTop_toBottomOf="@id/login_button"
+        app:layout_constraintVertical_bias="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
