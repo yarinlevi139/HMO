@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal">
+    android:background="@color/light_blue">
 
     <TextView
         android:id="@+id/instructionText"
@@ -12,40 +11,83 @@
         android:layout_height="wrap_content"
         android:text="What do you need?"
         android:textSize="24sp"
-        android:gravity="center"
-        android:layout_marginBottom="32dp"/>
+        android:textColor="@color/dark_blue"
+        android:fontFamily="cursive"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bloodTestButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="Blood Test"
-        android:layout_marginBottom="16dp"/>
+        android:background="@drawable/button_background"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/instructionText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/familyDoctorButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="Family Doctor"
-        android:layout_marginBottom="16dp"/>
+        android:background="@drawable/button_background"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/bloodTestButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/dentistButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="Dentist"
-        android:layout_marginBottom="16dp"/>
+        android:background="@drawable/button_background"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/familyDoctorButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/eyeCheckupButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="Eye Checkup"
-        android:layout_marginBottom="16dp"/>
+        android:background="@drawable/button_background"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/dentistButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:text="Back" />
-</LinearLayout>
+        android:text="Back"
+        android:background="@drawable/button_background"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/eyeCheckupButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,12 +22,14 @@
     <!-- Add more TextViews for other details if needed -->
 
     <!-- Button to the right of the text -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Cancel"
-        android:backgroundTint="@color/black"
-        android:textColor="#FFFFFF"/>
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/cancel_button_background"/>
+
 </LinearLayout>

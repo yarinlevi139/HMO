@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/light_blue">
 
     <TextView
         android:id="@+id/instructionText"
@@ -11,6 +12,8 @@
         android:text="Here is the list of doctors who are available for (x)"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:textColor="@color/dark_blue"
+        android:fontFamily="cursive"
         android:layout_gravity="center"
         android:padding="16dp"/>
 
@@ -23,12 +26,16 @@
         android:dividerHeight="1dp"
         android:padding="16dp"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="Back"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_background"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
+
 </LinearLayout>

@@ -80,6 +80,7 @@ public class doctors_available extends AppCompatActivity {
                                     n.putExtra("docLastName", selectedDocLastName);
                                     n.putExtra("docEmail", selectedDocEmail);
                                     startActivity(n);
+                                    finish(); // finish current activity
                                 }
                             });
 

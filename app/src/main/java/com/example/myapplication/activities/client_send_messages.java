@@ -87,7 +87,7 @@ public class client_send_messages extends AppCompatActivity {
                                 String doctorName = document.getString("name");
 
                                 // Add to the list only if the name is not null
-                                if (doctorName != null && !doctorName.isEmpty()) {
+                                if (doctorName != null && !doctorName.isEmpty() && !doctorName.equals("irrelevant")) {
                                     doctorNames.add(doctorName);
                                 }
                             }

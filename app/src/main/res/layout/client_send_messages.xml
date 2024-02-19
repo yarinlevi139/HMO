@@ -3,45 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_blue">
 
     <!-- Date Spinner -->
+
     <Spinner
         android:id="@+id/spinnerDoctors"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/white"
         android:dropDownWidth="match_parent"
-        android:spinnerMode="dropdown"
         android:gravity="center"
-        tools:ignore="MissingConstraints" />
+        android:spinnerMode="dropdown"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="66dp" />
 
     <EditText
         android:id="@+id/message"
         android:layout_width="357dp"
         android:layout_height="152dp"
+        android:layout_marginTop="232dp"
+
         android:ems="10"
         android:hint="Your message"
         android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="8dp"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.46"
+        app:layout_constraintTop_toBottomOf="@id/spinnerDoctors"
         tools:ignore="MissingConstraints" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/send_button"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:text="Send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.409"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:background="@drawable/button_background"
+        app:layout_constraintTop_toBottomOf="@id/message"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.651" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

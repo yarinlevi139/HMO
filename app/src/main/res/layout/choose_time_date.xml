@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_blue">
 
     <!-- Title -->
     <TextView
@@ -13,30 +14,36 @@
         android:layout_height="wrap_content"
         android:text="Choose your date"
         android:textSize="24sp"
+        android:textColor="@color/dark_blue"
+        android:fontFamily="cursive"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Date Spinner -->
+
+    <!-- Time Title -->
     <Spinner
         android:id="@+id/spinnerDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="72dp"
         android:dropDownWidth="match_parent"
+        android:gravity="center"
         android:spinnerMode="dropdown"
-        android:gravity="center"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <!-- Time Title -->
     <TextView
         android:id="@+id/timeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Available Hours:"
         android:textSize="24sp"
+        android:textColor="@color/dark_blue"
+        android:fontFamily="cursive"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,26 +64,36 @@
         android:spinnerMode="dropdown"
         android:gravity="center"/>
 
-    <Button
-        android:id="@+id/setAppointmentButton"
-        android:layout_width="405dp"
-        android:layout_height="55dp"
-        android:text="Set Appointment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
+    <!-- Set Appointment Button -->
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="403dp"
-        android:layout_height="58dp"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- Back Button -->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/setAppointmentButton"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/button_background"
+        android:text="Set Appointment"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTime" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backButton"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/button_background"
+        android:text="Back"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setAppointmentButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
