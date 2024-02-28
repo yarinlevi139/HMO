@@ -3,6 +3,7 @@ package com.example.myapplication.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.example.myapplication.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class appointment_adapter extends ArrayAdapter<String> {
@@ -31,9 +34,11 @@ public class appointment_adapter extends ArrayAdapter<String> {
     }
 
     public void setData(int position, String email, String time, String date) {
+        pList.add(new Appointment());
         pList.get(position).setClientEmail(email);
         pList.get(position).setHour(time);
         pList.get(position).setDate(date);
+
     }
 
 
@@ -58,12 +63,17 @@ public class appointment_adapter extends ArrayAdapter<String> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the email, hour, and date for the selected appointment
+
+
+                Collections.sort(pList, Comparator.comparing(Appointment::getHour));
+
                 String email = pList.get(position).getClientEmail();
                 String time = pList.get(position).getHour();
                 String date = pList.get(position).getDate();
 
 
+                Log.d("POSITT",pList.toString());
+                Log.d("POSITT",position + "");
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -76,6 +86,7 @@ public class appointment_adapter extends ArrayAdapter<String> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteAppointmentFromFirestore(email, time, date);
+                        pList.remove(position);
                         // Remove the item from the ListView
                         remove(getItem(position));
                         notifyDataSetChanged();
@@ -113,6 +124,10 @@ public class appointment_adapter extends ArrayAdapter<String> {
      * @param date
      */
     private void deleteAppointmentFromFirestore(String email, String time, String date) {
+
+        Log.d("POSITT",email + " " + time + " " + date);
+
+
         firestore.collection("Appointments")
                 .whereEqualTo("clientEmail", email)
                 .whereEqualTo("hour", time)

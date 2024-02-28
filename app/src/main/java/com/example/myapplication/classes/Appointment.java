@@ -1,6 +1,6 @@
 package com.example.myapplication.classes;
 
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
     private String Date;
     private String Hour;
     private String Doctor;
@@ -90,5 +90,20 @@ public class Appointment {
 
     public void setClientEmail(String clientEmail) {
         this.client_email = clientEmail;
+    }
+
+    @Override
+    public int compareTo(Appointment other) {
+        // Compare appointments based on time
+        int timeComparison = this.Hour.compareTo(other.Hour);
+        if (timeComparison == 0) {
+            // If time is the same, compare by date
+            return this.Date.compareTo(other.Date);
+        }
+        return timeComparison;
+    }
+    @Override
+    public String toString(){
+        return this.Date + " " + this.Hour + " " + this.client_email + " " + this.Name;
     }
 }

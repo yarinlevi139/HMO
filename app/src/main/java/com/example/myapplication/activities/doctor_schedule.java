@@ -91,10 +91,12 @@ public class doctor_schedule extends AppCompatActivity {
             // Fetch and display appointments for the selected date
             fetchAndDisplayAppointments(selectedDate);
 
+
             // Set the day of the week
             setDayOfWeek(selectedDate);
         });
     }
+
 
     /**
      * Fetches and displays appointments for the selected date using Firebase Firestore.
@@ -108,6 +110,8 @@ public class doctor_schedule extends AppCompatActivity {
 
         // Access Firestore to get appointments for the selected date and the logged-in doctor
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        adapter.pList.clear();
 
         db.collection(COLLECTION_APPOINTMENTS)
                 .whereEqualTo(FIELD_DOC_EMAIL, loggedInDoctorEmail)
@@ -126,9 +130,10 @@ public class doctor_schedule extends AppCompatActivity {
                             String time = document.getString(FIELD_HOUR);
                             String clientEmail = document.getString(FIELD_CLIENT_EMAIL);
 
-                            // Add appointment to the adapter's data
-                            adapter.pList.add(new Appointment());
+
+                            // Add appointment to the adapter's dat
                             adapter.setData(counter++, clientEmail, time, selectedDate);
+
 
                             // Create appointment details string
                             String appointmentDetails = "Client Name: " + clientName + "\n" +
